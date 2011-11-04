@@ -18,6 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.1.1"
 
-  s.add_development_dependency "ZenTest"
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "shoulda"
+  s.add_development_dependency "factory_girl"
   s.add_development_dependency "sqlite3"
 end

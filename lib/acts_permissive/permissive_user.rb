@@ -7,15 +7,15 @@ module ActsPermissive
 
     module ClassMethods
       def acts_permissive
-#        has_many :memberships
+        has_many :memberships
+        has_many :groups, :through => :memberships
         include ActsPermissive::PermissiveUser::InstanceMethods
-#        include ActsAsFollower::FollowerLib
+        extend ActsPermissive::UserScopes
       end
     end
 
     module InstanceMethods
 
-      # Returns true if this instance is following the object passed as an argument.
       def is_permissive?
         "Yes"
       end
