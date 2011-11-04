@@ -11,6 +11,8 @@ load(File.dirname(__FILE__) + '/schema.rb')
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
+require File.expand_path('../../lib/acts_permissive', __FILE__)
+
 require 'shoulda'
 require 'factory_girl'
 FactoryGirl.find_definitions

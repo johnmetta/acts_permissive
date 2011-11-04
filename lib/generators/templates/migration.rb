@@ -27,6 +27,8 @@ class ActsPermissiveMigration < ActiveRecord::Migration
 
   end
 
+  end
+
   def self.down
     drop_table :memberships
     drop_table :circles
