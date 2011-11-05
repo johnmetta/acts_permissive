@@ -4,6 +4,8 @@ module ActsPermissive
     belongs_to :user
     belongs_to :role
 
+    validates_uniqueness_of :circle_id, :scope => [:user_id, :role_id]
+
     scope :by_user, lambda { |user|
       where('user_id = ?', user.id)
     }

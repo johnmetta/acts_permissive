@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20111104031649) do
 
   create_table "things", :force => true do |t|
     t.string   "name"
+    t.string   "guid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -29,8 +29,8 @@ class MembershipContainerTest < ActiveSupport::TestCase
 
   context "user methods" do
     setup do
-      @container = ActsPermissive::MembershipContainer.new
       @user = Factory :sam
+      @container = @user.grants
     end
 
     should "Set the correct values" do
@@ -57,13 +57,14 @@ class MembershipContainerTest < ActiveSupport::TestCase
   context "partial chain" do
 
     should "Not create membership for only role and user" do
-      container = ActsPermissive::MembershipContainer.new
-      user = Factory :sam
-      container.read.to(user) == container
+      sam = Factory :sam
+      bob = Factory :bob
+      container = sam.grants.read.to(bob)
+      assert container == true
+      assert_instance_of ActsPermissive::MembershipContainer, container
     end
 
     should "Not create membership for only role and circle" do
-      container = ActsPermissive::MembershipContainer.new
       circle = ActsPermissive::Circle.new
       container.read.on(circle) == container
     end

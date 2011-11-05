@@ -12,6 +12,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.string :name
       t.string :guid
       t.boolean :is_hidden
+      t.boolean :is_public, :default => false
       t.integer :circleable_id
       t.string  :circleable_type
 
