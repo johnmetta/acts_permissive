@@ -5,7 +5,7 @@ module ActsPermissive
   class Railtie < Rails::Railtie
 
     rake_tasks do
-      Dir[File.join(File.dirname(__FILE__),'railties/*.rake')].each { |f| load f }
+      Dir[File.join(File.dirname(__FILE__),'../railties/*.rake')].each { |f| load f }
     end
 
     initializer "acts_permissive.active_record" do |app|

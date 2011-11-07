@@ -1,3 +1,3 @@
 module ActsPermissive
-  VERSION = "0.0.2.rc3"
+  VERSION = "0.0.2.rc4"
 end
