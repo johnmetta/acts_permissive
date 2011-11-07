@@ -7,6 +7,7 @@ require 'acts_permissive/membership'
 require 'acts_permissive/membership_container'
 require 'acts_permissive/circle'
 require 'acts_permissive/role'
+require 'acts_permissive/exceptions'
 
 module ActsPermissive
   autoload :PermissiveObject,   'acts_permissive/permissive_object'

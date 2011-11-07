@@ -2,20 +2,19 @@ module ActsPermissive
   class Role < ActiveRecord::Base
     has_many :memberships
 
-    #Make power unique, but allow for user extension by scoping on name
-    validates_uniqueness_of :power, :scope => :name
+    validates_uniqueness_of :power, :name
 
     def self.owner
-      Role.find_by_name("owner")
+      Role.find_by_power("1000")
     end
     def self.admin
-      Role.find_by_name("admin")
-    end
-    def self.read
-      Role.find_by_name("read")
+      Role.find_by_power("0100")
     end
     def self.write
-      Role.find_by_name("write")
+      Role.find_by_power("0010")
+    end
+    def self.read
+      Role.find_by_power("0001")
     end
 
     def binary

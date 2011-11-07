@@ -11,12 +11,5 @@ module ActsPermissive
       end
     end
 
-    initializer "Seed database with roles" do |app|
-      Role.create!(:name => "owner", :power => '1000')
-      Role.create!(:name => "admin", :power => '0100')
-      Role.create!(:name => "write", :power => '0010')
-      Role.create!(:name => "read",  :power => '0001')
-    end
-
   end
 end

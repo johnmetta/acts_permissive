@@ -21,7 +21,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
 
     create_table :roles do |t|
       t.string :name
-      t.binary :power, :limit => 1.byte
+      t.string :power
 
       t.timestamps
     end

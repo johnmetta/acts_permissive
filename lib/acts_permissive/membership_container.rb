@@ -8,20 +8,20 @@ module ActsPermissive
     #############
     # Set roles
     def read
-      role = ActsPermissive::Role.read
+      self.role = ActsPermissive::Role.read
       validate_or_return
     end
     def write
-      role = ActsPermissive::Role.write
+      self.role = ActsPermissive::Role.write
       validate_or_return
     end
     def admin
-      role = ActsPermissive::Role.admin
+      self.role = ActsPermissive::Role.admin
       validate_or_return
     end
     alias :administration :admin
     def owner
-      role = ActsPermissive::Role.owner
+      self.role = ActsPermissive::Role.owner
       validate_or_return
     end
     alias :ownership :owner
@@ -59,7 +59,6 @@ module ActsPermissive
     #############
     # Create a membership
     def build_membership!
-      test_privileges
       if grant
         ActsPermissive::Membership.create(:user => user, :role => role, :circle => circle).save!
       else
@@ -75,6 +74,7 @@ module ActsPermissive
     #########
     #
     def validate_or_return
+      test_privileges
       if self.valid?
         build_membership!
       else
@@ -83,10 +83,12 @@ module ActsPermissive
     end
 
     def test_privileges
-      if [ActsPermissive::Role.owner, ActsPermissive::Role.admin].include? role
-        raise "User must own resource to add owners/admins" if not calling_user.owns?(circle)
-        end
-      raise "User must be an admin to add read/write privileges" if not calling_user.admins?(circle)
+      if role
+        if [ActsPermissive::Role.owner, ActsPermissive::Role.admin].include? role
+          raise ActsPermissive::PermissiveException("User must own resource to add owners/admins") if not calling_user.owns?(circle)
+          end
+        raise ActsPermissive::PermissiveException("User must be an admin to add read/write privileges") if not calling_user.admins?(circle)
+      end
     end
 
   end

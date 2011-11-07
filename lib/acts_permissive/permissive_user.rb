@@ -33,10 +33,16 @@ module ActsPermissive
       end
 
       # Permission granting
-      def grant; ActsPermissive::MembershipContainer.new :grant => true, :calling_user => self end
+      def grant
+        ActsPermissive::MembershipContainer.new :grant => true,
+                                                :calling_user => self
+      end
       alias :grants :grant
 
-      def revoke; ActsPermissive::MembershipContainer.new :grant => false, :calling_user => self end
+      def revoke
+        ActsPermissive::MembershipContainer.new :grant => false,
+                                                :calling_user => self
+      end
       alias :revokes :revoke
 
       def is_member_of? obj

@@ -133,7 +133,7 @@ class ActsPermissiveTest < ActiveSupport::TestCase
        @circle = ActsPermissive::Circle.new
        @thing = Factory :thing
        ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
-       @thing = Factory :thing
+       @john.make_owner_of @thing
       end
 
       should "Return grant read access to a user on a circle" do
@@ -167,7 +167,7 @@ class ActsPermissiveTest < ActiveSupport::TestCase
        @circle = ActsPermissive::Circle.new
        @thing = Factory :thing
        ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
-       @thing = Factory :thing
+       @john.make_owner_of @thing
       end
 
       should "Return grant read access to a user on a circle" do
@@ -201,7 +201,7 @@ class ActsPermissiveTest < ActiveSupport::TestCase
        @circle = ActsPermissive::Circle.new
        @thing = Factory :thing
        ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
-       @thing = Factory :thing
+       @john.make_owner_of @thing
       end
 
       should "Return grant read access to a user on a circle" do
@@ -224,6 +224,30 @@ class ActsPermissiveTest < ActiveSupport::TestCase
         assert @sam.admins?(@thing)
         assert @sam.owns?(@thing)
         assert @bob.reads?(@thing) == false
+      end
+
+      context "granting permissions" do
+        setup do
+         @sam = Factory :sam
+         @john = Factory :john
+         @bob = Factory :bob
+         @circle = ActsPermissive::Circle.new
+         @thing = Factory :thing
+         ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
+         @john.make_owner_of @thing
+        end
+
+        should "Not allow granting of permissions if user is not anything" do
+          assert_raise(ActsPermissive::PermissiveException) { @sam.grants.read.on(@thing).to(@bob)}
+          assert_raise(ActsPermissive::PermissiveException) { @bob.grants.write.on(@thing).to(@sam)}
+          assert_raise(ActsPermissive::PermissiveException) { @sam.grants.admin.on(@thing).to(@bob)}
+          assert_raise(ActsPermissive::PermissiveException) { @bob.grants.owner.on(@thing).to(@sam)}
+        end
+
+        should "Allow granting of read/write by admin" do
+          @john.grants.admin.on(@thing).to(@sam)
+          assert @sam.grants.read.on(@thing).to(@bob)
+        end
       end
 
     end
