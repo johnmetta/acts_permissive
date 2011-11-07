@@ -42,23 +42,9 @@ class IsUsedPermissively < ActiveSupport::TestCase
 
     should "be defined" do
       assert @thing.respond_to? :is_used_permissively?
-      assert @thing.respond_to? :add_owner
       assert @thing.respond_to? :is_public?
-      assert @thing.respond_to? :remove_owner
       assert @thing.respond_to? :circle_of_trust
       assert @thing.respond_to? :make_private!
-      assert @thing.respond_to? :grant
-      assert @thing.respond_to? :revoke
-      assert @thing.respond_to? :grants
-      assert @thing.respond_to? :revokes
-      assert @thing.respond_to? :add_owner
-      assert @thing.respond_to? :remove_owner
-      assert @thing.respond_to? :add_admin
-      assert @thing.respond_to? :remove_admin
-      assert @thing.respond_to? :add_writer
-      assert @thing.respond_to? :remove_writer
-      assert @thing.respond_to? :add_reader
-      assert @thing.respond_to? :remove_reader
     end
 
     should "return the default circle" do
@@ -67,24 +53,10 @@ class IsUsedPermissively < ActiveSupport::TestCase
     end
 
     should "correctly add an owner" do
-      @thing = Factory :thing
+      thing = Factory :thing
       user = Factory :john
-      user.make_owner_of @thing
-      assert user.owns?(@thing) == true
-    end
-
-    context "permission booleans" do
-
-      setup do
-        @sam = Factory :sam
-        @john = Factory :john
-        @john.make_owner_of( Factory :thing )
-      end
-      should "correctly return true if object owner" do
-        assert @sam.owns?(@thing) == false
-        assert @john.owns?(@thing) == true
-      end
-
+      user.make_owner_of thing
+      assert user.owns?(thing) == true
     end
 
   end

@@ -26,14 +26,15 @@ module ActsPermissive
         if not obj.is_used_permissively?
           raise "Must be called with an object that is_used_permissively"
         end
-        ActsPermissive::Membership.create :user => self, :role => ActsPermissive::Role.owner, :circle => obj.circle
+        membership = ActsPermissive::Membership.create :user => self, :role => ActsPermissive::Role.owner, :circle => obj.circle
+        membership.save
       end
 
       # Permission granting
-      def grant; ActsPermissive::MembershipContainer.new :grant => true, :owner => self end
+      def grant; ActsPermissive::MembershipContainer.new :grant => true, :calling_user => self end
       alias :grants :grant
 
-      def revoke; ActsPermissive::MembershipContainer.new :grant => false, :owner => self end
+      def revoke; ActsPermissive::MembershipContainer.new :grant => false, :calling_user => self end
       alias :revokes :revoke
 
       def is_member_of? obj

@@ -46,7 +46,7 @@ module ActsPermissive
       # Creates a default object
       def build_guid_and_circle
         self.guid = UUIDTools::UUID.random_create.to_str if self.guid.nil?
-        self.circle = ActsPermissive::Circle.create(:name => guid, :is_hidden => true, :is_public => false)
+        self.circle = ActsPermissive::Circle.create(:name => self.guid, :is_hidden => true, :is_public => false)
         raise self.circle.errors if not self.circle.save
       end
 

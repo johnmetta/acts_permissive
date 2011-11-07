@@ -1,9 +1,9 @@
 module ActsPermissive
   class MembershipContainer
     include ActiveModel::Validations
-    attr_accessor :role, :circle, :user, :grant, :owner
+    attr_accessor :role, :circle, :user, :grant, :calling_user
 
-    validates_presence_of :role, :circle, :user, :grant, :owner
+    validates_presence_of :role, :circle, :user, :grant, :calling_user
 
     #############
     # Set roles
@@ -30,7 +30,7 @@ module ActsPermissive
     # Set User
     def to user
       raise "Must send user instance" if user.class != User
-      user = user
+      self.user = user
       validate_or_return
     end
     alias :from :to
@@ -40,7 +40,7 @@ module ActsPermissive
     def on obj
       circle = get_circle_for obj
       raise "Must send circle instance" if circle.class != ActsPermissive::Circle
-      circle = circle
+      self.circle = circle
       validate_or_return
     end
 
@@ -59,7 +59,7 @@ module ActsPermissive
     #############
     # Create a membership
     def build_membership!
-#      test_privileges
+      test_privileges
       if grant
         ActsPermissive::Membership.create(:user => user, :role => role, :circle => circle).save!
       else
@@ -84,9 +84,9 @@ module ActsPermissive
 
     def test_privileges
       if [ActsPermissive::Role.owner, ActsPermissive::Role.admin].include? role
-        raise "User must own resource to add owners/admins" if not owner.owns?(circle)
+        raise "User must own resource to add owners/admins" if not calling_user.owns?(circle)
         end
-      raise "User must be an admin to add read/write privileges" if not owner.admins?(circle)
+      raise "User must be an admin to add read/write privileges" if not calling_user.admins?(circle)
     end
 
   end
