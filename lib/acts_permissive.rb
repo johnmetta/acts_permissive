@@ -1,5 +1,5 @@
-require 'simplecov'
-SimpleCov.start 'rails'
+#require 'simplecov'
+#SimpleCov.start 'rails'
 
 require 'uuidtools'
 require 'acts_permissive/version'
