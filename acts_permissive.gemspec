@@ -5,13 +5,13 @@ require "acts_permissive/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "acts_permissive"
+  s.name        = %q{acts_permissive}
   s.version     = ActsPermissive::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ActsPermissive."
-  s.description = "TODO: Description of ActsPermissive."
+  s.authors     = %q{John Metta}
+  s.email       = %q{mail@johnmetta.com}
+  s.homepage    = %q{https://github.com/mettadore/acts_permissive.git}
+  s.summary     = %q{Permissions system, byte additive, extensible}
+  s.description = %q{Rails plugin providing expanded Unix-like permissions system for Ruby objects}
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
