@@ -28,7 +28,7 @@ module ActsPermissive
         end
         membership = ActsPermissive::Membership.create :user_id => id,
                                                        :role_id => ActsPermissive::Role.owner.id,
-                                                       :circle_id => obj.circle_id
+                                                       :circle_id => obj.circle.id
         membership.save!
       end
 

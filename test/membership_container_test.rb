@@ -2,6 +2,18 @@ require 'test_helper'
 
 class MembershipContainerTest < ActiveSupport::TestCase
 
+  def setup
+    ActsPermissive::Role.create(:name => "owner", :power => '1000')
+    ActsPermissive::Role.create(:name => "admin", :power => '0100')
+    ActsPermissive::Role.create(:name => "write", :power => '0010')
+    ActsPermissive::Role.create(:name => "read",  :power => '0001')
+  end
+  def teardown
+    ActsPermissive::Role.owner.destroy
+    ActsPermissive::Role.admin.destroy
+    ActsPermissive::Role.write.destroy
+    ActsPermissive::Role.read.destroy
+  end
   context "role methods" do
     setup do
       @container = ActsPermissive::MembershipContainer.new

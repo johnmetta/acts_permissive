@@ -1,6 +1,18 @@
 require 'test_helper'
 
 class ActsPermissiveTest < ActiveSupport::TestCase
+  def setup
+    ActsPermissive::Role.create(:name => "owner", :power => '1000')
+    ActsPermissive::Role.create(:name => "admin", :power => '0100')
+    ActsPermissive::Role.create(:name => "write", :power => '0010')
+    ActsPermissive::Role.create(:name => "read",  :power => '0001')
+  end
+  def teardown
+    ActsPermissive::Role.owner.destroy
+    ActsPermissive::Role.admin.destroy
+    ActsPermissive::Role.write.destroy
+    ActsPermissive::Role.read.destroy
+  end
 
   context "module" do
 
@@ -62,7 +74,8 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       assert john.roles_in(thing).include?(ActsPermissive::Role.owner)
 #      assert john.roles_in(thing).include?(ActsPermissive::Role.admin) == false
 
-      john.grant.admin.to(john).on(thing)
+      ActsPermissive::Membership.create :user => john, :circle => thing.circle, :role => ActsPermissive::Role.admin
+
       assert john.roles_in(thing).include?(ActsPermissive::Role.admin)
     end
 
@@ -78,7 +91,6 @@ class ActsPermissiveTest < ActiveSupport::TestCase
 
   end
 
-=begin
     context "reading" do
       setup do
         @sam = Factory :sam
@@ -87,7 +99,7 @@ class ActsPermissiveTest < ActiveSupport::TestCase
         @circle = ActsPermissive::Circle.new
         ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
         @thing = Factory :thing
-        @thing.add_owner @john
+        @john.make_owner_of @thing
       end
 
       should "Return grant read access to a user on a circle" do
@@ -119,6 +131,8 @@ class ActsPermissiveTest < ActiveSupport::TestCase
        @john = Factory :john
        @bob = Factory :bob
        @circle = ActsPermissive::Circle.new
+       @thing = Factory :thing
+       ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
        @thing = Factory :thing
       end
 
@@ -152,6 +166,8 @@ class ActsPermissiveTest < ActiveSupport::TestCase
        @bob = Factory :bob
        @circle = ActsPermissive::Circle.new
        @thing = Factory :thing
+       ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
+       @thing = Factory :thing
       end
 
       should "Return grant read access to a user on a circle" do
@@ -184,6 +200,8 @@ class ActsPermissiveTest < ActiveSupport::TestCase
        @bob = Factory :bob
        @circle = ActsPermissive::Circle.new
        @thing = Factory :thing
+       ActsPermissive::Membership.create :user => @john, :circle => @circle, :role => ActsPermissive::Role.owner
+       @thing = Factory :thing
       end
 
       should "Return grant read access to a user on a circle" do
@@ -209,5 +227,4 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       end
 
     end
-=end
 end
