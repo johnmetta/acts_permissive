@@ -26,34 +26,34 @@ module ActsPermissive
         if not obj.is_used_permissively?
           raise "Must be called with an object that is_used_permissively"
         end
-        membership = ActsPermissive::Membership.create :user_id => id,
-                                                       :role_id => ActsPermissive::Role.owner.id,
+        membership = Membership.create :user_id => id,
+                                                       :role_id => Role.owner.id,
                                                        :circle_id => obj.circle.id
         membership.save!
       end
 
       # Permission granting
       def grant
-        ActsPermissive::MembershipContainer.new :grant => true,
+        MembershipContainer.new :grant => true,
                                                 :calling_user => self
       end
       alias :grants :grant
 
       def revoke
-        ActsPermissive::MembershipContainer.new :grant => false,
+        MembershipContainer.new :grant => false,
                                                 :calling_user => self
       end
       alias :revokes :revoke
 
       def is_member_of? obj
         circle = get_circle_for obj
-        ActsPermissive::Membership.by_user(self).by_circle(circle) != nil
+        Membership.by_user(self).by_circle(circle) != nil
       end
 
       def roles_in obj
         circle = get_circle_for obj
         roles = []
-        ActsPermissive::Membership.by_user(self).by_circle(circle).each do |membership|
+        Membership.by_user(self).by_circle(circle).each do |membership|
           roles << membership.role
         end
         roles
@@ -88,7 +88,7 @@ module ActsPermissive
       end
 
       def get_circle_for obj
-        if obj.class == ActsPermissive::Circle
+        if obj.class == Circle
           obj
         elsif obj.is_used_permissively?
           obj.circle

@@ -8,20 +8,20 @@ module ActsPermissive
     #############
     # Set roles
     def read
-      self.role = ActsPermissive::Role.read
+      self.role = Role.read
       validate_or_return
     end
     def write
-      self.role = ActsPermissive::Role.write
+      self.role = Role.write
       validate_or_return
     end
     def admin
-      self.role = ActsPermissive::Role.admin
+      self.role = Role.admin
       validate_or_return
     end
     alias :administration :admin
     def owner
-      self.role = ActsPermissive::Role.owner
+      self.role = Role.owner
       validate_or_return
     end
     alias :ownership :owner
@@ -39,7 +39,7 @@ module ActsPermissive
     # Set Circle
     def on obj
       circle = get_circle_for obj
-      raise "Must send circle instance" if circle.class != ActsPermissive::Circle
+      raise "Must send circle instance" if circle.class != Circle
       self.circle = circle
       validate_or_return
     end
@@ -47,7 +47,7 @@ module ActsPermissive
     private
 
     def get_circle_for obj
-      if obj.class == ActsPermissive::Circle
+      if obj.class == Circle
         obj
       elsif obj.is_used_permissively?
         obj.circle
@@ -60,11 +60,11 @@ module ActsPermissive
     # Create a membership
     def build_membership!
       if grant
-        ActsPermissive::Membership.create(:user => user, :role => role, :circle => circle).save!
+        Membership.create(:user => user, :role => role, :circle => circle).save!
       else
-        ActsPermissive::Membership.where("user_id == #{user.id}")
+        Membership.where("user_id == #{user.id}")
                                   .where("circle_id == #{default_circle.id}")
-                                  .where("role_id == #{ActsPermissive::Role.owner.id}")
+                                  .where("role_id == #{Role.owner.id}")
                                   .each do |m|
           m.destroy!
         end
@@ -84,10 +84,10 @@ module ActsPermissive
 
     def test_privileges
       if role
-        if [ActsPermissive::Role.owner, ActsPermissive::Role.admin].include? role
-          raise ActsPermissive::PermissiveException("User must own resource to add owners/admins") if not calling_user.owns?(circle)
+        if [Role.owner, Role.admin].include? role
+          raise PermissiveException("User must own resource to add owners/admins") if not calling_user.owns?(circle)
           end
-        raise ActsPermissive::PermissiveException("User must be an admin to add read/write privileges") if not calling_user.admins?(circle)
+        raise PermissiveException("User must be an admin to add read/write privileges") if not calling_user.admins?(circle)
       end
     end
 
