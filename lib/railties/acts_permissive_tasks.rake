@@ -4,7 +4,7 @@
 # end
 
 desc "Create the default roles" do
-  task :install do
+  task :seed_roles do
     puts "Loading role seed data"
     Role.create(:name => "owner", :power => '1000')
     Role.create(:name => "admin", :power => '0100')
