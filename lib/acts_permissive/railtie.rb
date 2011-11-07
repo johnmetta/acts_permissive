@@ -11,9 +11,5 @@ module ActsPermissive
       end
     end
 
-    rake_tasks do
-      load "acts_permissive/railties/acts_permissive_tasks.rake"
-    end
-
   end
 end
