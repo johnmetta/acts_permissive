@@ -56,7 +56,7 @@ class IsUsedPermissively < ActiveSupport::TestCase
       thing = Factory :thing
       user = Factory :john
       user.make_owner_of thing
-      assert user.owns?(thing) == true
+      assert user.owns?(thing)
     end
 
   end

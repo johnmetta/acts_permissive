@@ -12,6 +12,10 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       assert_kind_of Module, ActsPermissive::PermissiveUser
     end
 
+    should "create roles" do
+      assert ActsPermissive::Role.owner.binary == 8
+    end
+
   end
 
   context "instance methods" do
