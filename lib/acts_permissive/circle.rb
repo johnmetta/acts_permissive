@@ -13,14 +13,11 @@ module ActsPermissive
     scope :by_user, lambda { |user|
       joins(:memberships).where('memberships.user_id = ?', user.id).select("DISTINCT `circles`.*")
     }
-    scope :by_role, lambda { |role|
-      joins(:memberships).where('memberships.role_id = ?', role.id).select("`circles`.*")
+    scope :by_power, lambda { |power|
+      joins(:memberships).where('memberships.power = ?', power).select("`circles`.*")
     }
     scope :by_user_id, lambda { |user_id|
       joins(:memberships).where('memberships.user_id = ?', user_id).select("DISTINCT `circles`.*")
-    }
-    scope :by_role_id, lambda { |role_id|
-      joins(:memberships).where('memberships.role_id = ?', role_id).select("`circles`.*")
     }
     scope :by_hidden, lambda { |hidden|
       where('is_hidden = ?', hidden)

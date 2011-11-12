@@ -7,6 +7,7 @@ require 'acts_permissive/membership'
 require 'acts_permissive/membership_container'
 require 'acts_permissive/circle'
 require 'acts_permissive/exceptions'
+require 'acts_permissive/permissive_lib'
 
 module ActsPermissive
   autoload :UserScopes,         'acts_permissive/user_scopes'

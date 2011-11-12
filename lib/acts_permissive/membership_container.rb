@@ -1,9 +1,9 @@
 module ActsPermissive
   class MembershipContainer
     include ActiveModel::Validations
-    attr_accessor :role, :circle, :user, :grant, :calling_user
+    attr_accessor :power, :circle, :user, :grant, :calling_user
 
-    validates_presence_of :role, :circle, :user, :grant, :calling_user
+    validates_presence_of :power, :circle, :user, :grant, :calling_user
 
     ##############
     # TODO: Figure out how to load PermissiveLib from this non-ActiveResource class and remove these helpers
@@ -31,6 +31,7 @@ module ActsPermissive
       to_bin 32
     end
     ##########################
+
     ##############
     # Set User
     def to user
@@ -65,11 +66,11 @@ module ActsPermissive
     # Create a membership
     def build_membership!
       if grant
-        Membership.create(:user => user, :role => role, :circle => circle).save!
+        Membership.create(:user => user, :power => power, :circle => circle).save!
       else
         Membership.where("user_id == #{user.id}")
                                   .where("circle_id == #{default_circle.id}")
-                                  .where("role == #{role}")
+                                  .where("power == #{power}")
                                   .each do |m|
           m.destroy!
         end

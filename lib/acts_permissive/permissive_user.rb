@@ -11,8 +11,9 @@ module ActsPermissive
         has_many :groups, :through => :memberships
         include ActsPermissive::PermissiveUser::InstanceMethods
         extend ActsPermissive::UserScopes
+        include ActsPermissive::PermissiveLib
         validates_presence_of :guid
-        before_validation :create_guid
+        before_validation :create_guid!
       end
     end
 
@@ -27,7 +28,7 @@ module ActsPermissive
           raise "Must be called with an object that is_used_permissively"
         end
         membership = Membership.create :user_id => id,
-                                       :role_id => Role.owner.id,
+                                       :power => owner_bin_string,
                                        :circle_id => obj.circle.id
         membership.save!
       end
@@ -35,13 +36,13 @@ module ActsPermissive
       # Permission granting
       def grant
         MembershipContainer.new :grant => true,
-                                                :calling_user => self
+                                :calling_user => self
       end
       alias :grants :grant
 
       def revoke
         MembershipContainer.new :grant => false,
-                                                :calling_user => self
+                                :calling_user => self
       end
       alias :revokes :revoke
 
@@ -50,52 +51,37 @@ module ActsPermissive
         Membership.by_user(self).by_circle(circle) != nil
       end
 
-      def roles_in obj
+      def powers_in obj
         circle = get_circle_for obj
-        roles = []
+        powers = []
         Membership.by_user(self).by_circle(circle).each do |membership|
-          roles << membership.role
+          powers << membership.power
         end
-        roles
+        powers
       end
 
-      def roleset_in obj
+      def power_set_in obj
         circle = get_circle_for obj
-        self.roles_in(circle).inject(0) { |result, role| result | role.binary}
+        self.powers_in(circle).inject(:+)
       end
 
       def owns? obj
         circle = get_circle_for obj
-        roleset_in(circle) & 8 == 8
+        power_set_in(circle) & 256 == 256
       end
       def admins? obj
         circle = get_circle_for obj
-        roleset_in(circle) & 4 == 4
+        power_set_in(circle) & 128 == 128
       end
       def writes? obj
         circle = get_circle_for obj
-        roleset_in(circle) & 2 == 2
+        power_set_in(circle) & 64 == 64
       end
       def reads? obj
         circle = get_circle_for obj
-        circle.is_public || (roleset_in(circle) & 1 == 1)
+        circle.is_public || (power_set_in(circle) & 32 == 32)
       end
 
-      private
-
-      def create_guid
-        self.guid = UUIDTools::UUID.random_create.to_str if self.guid.nil?
-      end
-
-      def get_circle_for obj
-        if obj.class == Circle
-          obj
-        elsif obj.is_used_permissively?
-          obj.circle
-        else
-          raise "Argument must be a trust circle or an object that is used permissively"
-        end
-      end
     end
   end
 end

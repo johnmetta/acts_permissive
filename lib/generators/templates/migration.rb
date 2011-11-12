@@ -3,7 +3,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
     create_table :memberships do |t|
       t.integer :user_id
       t.integer :circle_id
-      t.string :role, :null => false, :default => '000000000'
+      t.string :power, :null => false, :default => '000000000'
 
       t.timestamps
     end
@@ -19,18 +19,10 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :roles do |t|
-      t.string :name
-      t.string :power
-
-      t.timestamps
-    end
-
   end
 
   def self.down
     drop_table :memberships
     drop_table :circles
-    drop_table :roles
   end
 end
