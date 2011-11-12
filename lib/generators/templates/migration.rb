@@ -3,7 +3,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
     create_table :memberships do |t|
       t.integer :user_id
       t.integer :circle_id
-      t.integer :role_id
+      t.string :role, :null => false, :default => '000000000'
 
       t.timestamps
     end

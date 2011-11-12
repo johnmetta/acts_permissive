@@ -5,27 +5,32 @@ module ActsPermissive
 
     validates_presence_of :role, :circle, :user, :grant, :calling_user
 
-    #############
-    # Set roles
-    def read
-      self.role = Role.read
-      validate_or_return
+    ##############
+    # TODO: Figure out how to load PermissiveLib from this non-ActiveResource class and remove these helpers
+    def to_bin value
+      if value.class == String
+        value.to_i(2)
+      elsif value.class == Integer
+        value.to_s(2).rjust(9)
+      end
     end
-    def write
-      self.role = Role.write
-      validate_or_return
-    end
-    def admin
-      self.role = Role.admin
-      validate_or_return
-    end
-    alias :administration :admin
-    def owner
-      self.role = Role.owner
-      validate_or_return
-    end
-    alias :ownership :owner
 
+    def owner
+      to_bin 256
+    end
+
+    def admin
+      to_bin 128
+    end
+
+    def read
+      to_bin 64
+    end
+
+    def write
+      to_bin 32
+    end
+    ##########################
     ##############
     # Set User
     def to user
@@ -64,7 +69,7 @@ module ActsPermissive
       else
         Membership.where("user_id == #{user.id}")
                                   .where("circle_id == #{default_circle.id}")
-                                  .where("role_id == #{Role.owner.id}")
+                                  .where("role == #{role}")
                                   .each do |m|
           m.destroy!
         end
@@ -83,12 +88,6 @@ module ActsPermissive
     end
 
     def test_privileges
-      if role
-        if [Role.owner, Role.admin].include? role
-          raise PermissiveException("User must own resource to add owners/admins") if not calling_user.owns?(circle)
-          end
-        raise PermissiveException("User must be an admin to add read/write privileges") if not calling_user.admins?(circle)
-      end
     end
 
   end

@@ -27,8 +27,8 @@ module ActsPermissive
           raise "Must be called with an object that is_used_permissively"
         end
         membership = Membership.create :user_id => id,
-                                                       :role_id => Role.owner.id,
-                                                       :circle_id => obj.circle.id
+                                       :role_id => Role.owner.id,
+                                       :circle_id => obj.circle.id
         membership.save!
       end
 

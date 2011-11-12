@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    acts_permissive (0.0.2.rc5)
+    acts_permissive (0.0.2.rc6)
       rails (~> 3.1.1)
       uuidtools
 

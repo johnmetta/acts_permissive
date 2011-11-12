@@ -16,6 +16,33 @@ module ActsPermissive
 
     module InstanceMethods
 
+      ##############
+      # TODO: Figure out how to load PermissiveLib from this class and remove these helpers
+      def to_bin value
+        if value.class == String
+          value.to_i(2)
+        elsif value.class == Integer
+          value.to_s(2).rjust(9)
+        end
+      end
+
+      def owner
+        to_bin 256
+      end
+
+      def admin
+        to_bin 128
+      end
+
+      def read
+        to_bin 64
+      end
+
+      def write
+        to_bin 32
+      end
+      ##########################
+
       # Returns true if this instance is following the object passed as an argument.
       def is_used_permissively?
         true
