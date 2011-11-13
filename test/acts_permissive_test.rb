@@ -93,6 +93,12 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       thing = john.create_as_owner Thing
       assert_instance_of Thing, thing
     end
+
+    should "Set parameters on creation" do
+      john = Factory :john
+      thing = john.create_as_owner Thing, {:name => "blah"}
+      assert thing.name == "blah"
+    end
   end
 
   context "power set" do
