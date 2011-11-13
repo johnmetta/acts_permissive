@@ -57,12 +57,11 @@ class ActsPermissiveTest < ActiveSupport::TestCase
 
   context "make owner" do
     setup do
-      @thing = Factory :thing
       @john = Factory :john
+      @thing = @john.create_as_owner Thing, Factory.attributes_for(:thing)
     end
 
     should "correctly set the 256 bit for ownership" do
-      @john.make_owner_of @thing
       mems = Membership.find(:all, :conditions => {:user_id => @john.id, :circle_id => @thing.circle.id})
       assert mems.length == 1
       assert mems[0].power == Membership.binary_owner
@@ -85,6 +84,14 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       mc = @john.revokes
       assert mc.calling_user == @john
       assert mc.grant == false
+    end
+  end
+
+  context "creation" do
+    should "Create an object correctly" do
+      john = Factory :john
+      thing = john.create_as_owner Thing
+      assert_instance_of Thing, thing
     end
   end
 
@@ -123,11 +130,10 @@ class ActsPermissiveTest < ActiveSupport::TestCase
   context "boolean functions" do
     setup do
       Membership.delete :all
-      @thing = Factory :thing
       @sam = Factory :sam
       @bob = Factory :bob
       @john = Factory :john
-      @john.make_owner_of @thing
+      @thing = @john.create_as_owner Thing, Factory.attributes_for(:thing)
       @john.grants.admin.on(@thing).to(@sam)
       @sam.grants.read.on(@thing).to(@bob)
     end

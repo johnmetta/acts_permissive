@@ -65,9 +65,8 @@ class MembershipContainerTest < ActiveSupport::TestCase
 
   context "circle methods" do
     setup do
-      @thing = Factory :thing
       @john = Factory :john
-      @john.make_owner_of @thing
+      @thing = @john.create_as_owner Thing, Factory.attributes_for(:thing)
     end
 
     should "correctly set the calling user and user" do
@@ -82,11 +81,10 @@ class MembershipContainerTest < ActiveSupport::TestCase
 
   context "full membership" do
     setup do
-      @thing = Factory :thing
       @john = Factory :john
       @bob = Factory :bob
       @sam = Factory :sam
-      @john.make_owner_of @thing
+      @thing = @john.create_as_owner Thing, Factory.attributes_for(:thing)
     end
 
     should "return a full membership" do

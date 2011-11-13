@@ -15,6 +15,7 @@ module ActsPermissive
         validates_presence_of :guid
         before_validation :create_guid!
       end
+
     end
 
     module InstanceMethods
@@ -23,14 +24,15 @@ module ActsPermissive
         true
       end
 
-      def make_owner_of obj
-        if not obj.is_used_permissively?
-          raise "Must be called with an object that is_used_permissively"
+      def create_as_owner klass, params = {}
+        if klass.respond_to? :is_used_permissively
+          obj = klass.create params
+          membership = Membership.create :user_id => id,
+                                         :power => binary_owner,
+                                         :circle_id => obj.circle.id
+          membership.save!
+          obj
         end
-        membership = Membership.create :user_id => id,
-                                       :power => binary_owner,
-                                       :circle_id => obj.circle.id
-        membership.save!
       end
 
       # Permission granting
@@ -84,6 +86,9 @@ module ActsPermissive
       def can_read? obj
         circle = get_circle_for obj
         circle.is_public || reads?(obj) || owns?(obj)
+      end
+      def can_see? obj
+        can_read?(obj) || can_write?(obj) || can_admin?(obj) || owns?(obj)
       end
 
       def admins? obj
