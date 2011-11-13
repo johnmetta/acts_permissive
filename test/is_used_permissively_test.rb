@@ -52,7 +52,13 @@ class IsUsedPermissively < ActiveSupport::TestCase
       assert thing.circle.name == thing.guid
     end
 
-    should "correctly add an owner"
-
+    should "set private and public correctly" do
+      thing = Factory :thing
+      assert thing.is_public? == false
+      thing.make_public!
+      assert thing.is_public?
+      thing.make_private!
+      assert thing.is_public? == false
+    end
   end
 end

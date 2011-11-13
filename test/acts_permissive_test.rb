@@ -38,6 +38,10 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       assert @sam.respond_to? :revokes
     end
 
+    should "announce that it is permissive" do
+      assert @sam.is_permissive?
+    end
+
   end
 
   context "class methods" do

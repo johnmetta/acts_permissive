@@ -84,21 +84,31 @@ class MembershipContainerTest < ActiveSupport::TestCase
     setup do
       @thing = Factory :thing
       @john = Factory :john
+      @bob = Factory :bob
+      @sam = Factory :sam
       @john.make_owner_of @thing
     end
 
     should "return a full membership" do
-      sam = Factory :sam
 
-      @john.grants.admin.to(sam).on(@thing)
-      assert sam.can_admin?(@thing)
+      @john.grants.admin.to(@sam).on(@thing)
+      assert @sam.can_admin?(@thing)
 
-      bob = Factory :bob
-      sam.grants.read.to(bob).on(@thing)
-      assert bob.can_write?(@thing) == false
-      assert bob.can_read?(@thing)
+      @sam.grants.read.to(@bob).on(@thing)
+      assert @bob.can_write?(@thing) == false
+      assert @bob.can_read?(@thing)
     end
 
-    should "not allow setting of permissions without proper authority"
+    should "not allow setting of permissions without proper authority" do
+      assert_raises ActsPermissive::PermissiveException do
+        @sam.grants.admin.on(@thing)
+      end
+      assert_raises ActsPermissive::PermissiveException do
+        @bob.grants.read.on(@thing)
+      end
+      assert_raise ActsPermissive::PermissiveException do
+        @bob.grants.write.on(@thing)
+      end
+    end
   end
 end

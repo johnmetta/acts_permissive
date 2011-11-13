@@ -86,9 +86,9 @@ class MembershipContainer
   def test_privileges
     if circle
       if [Membership.binary_owner, Membership.binary_admin].include?(power) and not calling_user.owns?(circle)
-        raise "Only owners can add administrator or other owners"
+        raise ActsPermissive::PermissiveException, "Only owners can add administrator or other owners"
       elsif not calling_user.can_admin?(circle)
-        raise "Only administrators and owners can change permissions"
+        raise ActsPermissive::PermissiveException, "Only administrators and owners can change permissions"
       end
     end
   end

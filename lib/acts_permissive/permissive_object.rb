@@ -33,13 +33,13 @@ module ActsPermissive
       #############################################################
 
       def make_private!
-        is_public = false
-        self.save!
+        self.circle.is_public = false
+        self.circle.save!
       end
 
       def make_public!
-        is_public = true
-        self.save!
+        self.circle.is_public = true
+        self.circle.save!
       end
 
       private
