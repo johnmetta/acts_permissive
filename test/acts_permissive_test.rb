@@ -57,8 +57,31 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       @john = Factory :john
     end
 
-    should "correctly set the 256 bit for ownership"
+    should "correctly set the 256 bit for ownership" do
+      @john.make_owner_of @thing
+      mems = Membership.find(:all, :conditions => {:user_id => @john.id, :circle_id => @thing.circle.id})
+      assert mems.length == 1
+      assert mems[0].power == Membership.binary_owner
+    end
 
+  end
+
+  context "granting and revoking" do
+    setup do
+      @john = Factory :john
+    end
+
+    should "create a proper MembershipContainer on grant" do
+      mc = @john.grants
+      assert mc.calling_user == @john
+      assert mc.grant
+    end
+
+    should "create a proper MembershipContainer on revoke" do
+      mc = @john.revokes
+      assert mc.calling_user == @john
+      assert mc.grant == false
+    end
   end
 
   context "power set" do
@@ -80,15 +103,53 @@ class ActsPermissiveTest < ActiveSupport::TestCase
     should "return the correct powers as list" do
       roles = @john.powers_in @thing
       assert roles.length == 2
-#      assert roles.include?(Membership.binary_read)
-#      assert roles.include?(Membership.binary_write)
-#      assert roles.include?(Membership.binary_owner) == false
+      assert_kind_of Array, roles
+      assert roles.include?(Membership.binary_write)
+      assert roles.include?(Membership.binary_read)
+      assert roles.include?(Membership.binary_owner) == false
     end
 
-    should "return the correct power set" #do
-#      @john.power_set_in(@thing) == 32 + 64
-#      @sam.power_set_in(@thing) == 256
-#    end
+    should "return the correct power set" do
+      assert @john.power_set_in(@thing) == 32 + 64
+      assert @sam.power_set_in(@thing) == 256
+    end
+
+  end
+
+  context "boolean functions" do
+    setup do
+      Membership.delete :all
+      @thing = Factory :thing
+      @sam = Factory :sam
+      @bob = Factory :bob
+      @john = Factory :john
+      @john.make_owner_of @thing
+      @john.grants.admin.on(@thing).to(@sam)
+      @sam.grants.read.on(@thing).to(@bob)
+    end
+
+    should "show correct ownership" do
+      assert @john.owns? @thing
+      assert @sam.owns?(@thing) == false
+      assert @bob.owns?(@thing) == false
+    end
+
+    should "show correct admin privileges" do
+      assert @john.can_admin? @thing
+      assert @sam.can_admin? @thing
+      assert @bob.can_admin?(@thing) == false
+    end
+
+    should "show correct read/write privileges" do
+      assert @john.can_read? @thing
+      assert @john.can_write? @thing
+
+      assert @sam.can_read?(@thing) == false
+      assert @sam.can_write?(@thing) == false
+
+      assert @bob.can_read?(@thing)
+      assert @bob.can_write?(@thing) == false
+    end
 
   end
 

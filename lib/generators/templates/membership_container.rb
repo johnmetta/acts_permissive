@@ -1,33 +1,29 @@
 class MembershipContainer
   include ActiveModel::Validations
+  include ActsPermissive::PermissiveLib
+
   attr_accessor :power, :circle, :user, :grant, :calling_user
 
   validates_presence_of :power, :circle, :user, :grant, :calling_user
 
-  ##############
-  # TODO: Figure out how to load PermissiveLib from this non-ActiveResource class and remove these helpers
-  def to_bin value
-    if value.class == String
-      value.to_i(2)
-    elsif value.class == Integer
-      value.to_s(2).rjust(9,'0')
-    end
-  end
-
   def owner
-    to_bin 256
+    self.power = self.binary_owner
+    validate_or_return
   end
 
   def admin
-    to_bin 128
+    self.power = self.binary_admin
+    validate_or_return
   end
 
   def write
-    to_bin 64
+    self.power = self.binary_write
+    validate_or_return
   end
 
   def read
-    to_bin 32
+    self.power = self.binary_read
+    validate_or_return
   end
   ##########################
 
@@ -88,6 +84,13 @@ class MembershipContainer
   end
 
   def test_privileges
+    if circle
+      if [Membership.binary_owner, Membership.binary_admin].include?(power) and not calling_user.owns?(circle)
+        raise "Only owners can add administrator or other owners"
+      elsif not calling_user.can_admin?(circle)
+        raise "Only administrators and owners can change permissions"
+      end
+    end
   end
 
 end

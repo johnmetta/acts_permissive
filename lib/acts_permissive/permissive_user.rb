@@ -28,21 +28,25 @@ module ActsPermissive
           raise "Must be called with an object that is_used_permissively"
         end
         membership = Membership.create :user_id => id,
-                                       :power => owner_bin_string,
+                                       :power => binary_owner,
                                        :circle_id => obj.circle.id
         membership.save!
       end
 
       # Permission granting
       def grant
-        MembershipContainer.new :grant => true,
-                                :calling_user => self
+        mc = MembershipContainer.new
+        mc.grant = true
+        mc.calling_user = self
+        mc
       end
       alias :grants :grant
 
       def revoke
-        MembershipContainer.new :grant => false,
-                                :calling_user => self
+        mc = MembershipContainer.new
+        mc.grant = false
+        mc.calling_user = self
+        mc
       end
       alias :revokes :revoke
 
@@ -55,6 +59,7 @@ module ActsPermissive
         circle = get_circle_for obj
         powers = []
         Membership.by_user(self).by_circle(circle).each do |membership|
+          # Need to re
           powers << membership.power
         end
         powers
@@ -62,13 +67,25 @@ module ActsPermissive
 
       def power_set_in obj
         circle = get_circle_for obj
-        self.powers_in(circle).inject(:+)
+        self.powers_in(circle).inject(0) { |result, power| result | as_integer(power)}
       end
 
       def owns? obj
         circle = get_circle_for obj
         power_set_in(circle) & 256 == 256
       end
+
+      def can_admin? obj
+        admins?(obj) || owns?(obj)
+      end
+      def can_write? obj
+        writes?(obj) || owns?(obj)
+      end
+      def can_read? obj
+        circle = get_circle_for obj
+        circle.is_public || reads?(obj) || owns?(obj)
+      end
+
       def admins? obj
         circle = get_circle_for obj
         power_set_in(circle) & 128 == 128
@@ -79,7 +96,7 @@ module ActsPermissive
       end
       def reads? obj
         circle = get_circle_for obj
-        circle.is_public || (power_set_in(circle) & 32 == 32)
+        power_set_in(circle) & 32 == 32
       end
 
     end

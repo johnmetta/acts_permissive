@@ -4,8 +4,6 @@ class Membership < ActiveRecord::Base
   belongs_to :circle
   belongs_to :user
 
-  attr_accessor :power
-
   validates_uniqueness_of :circle_id, :scope => [:user_id, :power]
 
   scope :by_user, lambda { |user|
