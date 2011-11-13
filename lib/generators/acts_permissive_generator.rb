@@ -24,8 +24,8 @@ class ActsPermissiveGenerator < Rails::Generators::Base
   end
 
   def create_model
-    template "../../circle.rb", File.join('app/models', "circle.rb")
-    template "../../membership.rb", File.join('app/models', "membership.rb")
+    template "../../acts_permissive/circle.rb", File.join('app/models', "circle.rb")
+    template "../../acts_permissive/membership.rb", File.join('app/models', "membership.rb")
   end
 
 end
