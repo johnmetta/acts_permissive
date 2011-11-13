@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Permissions system, byte additive, extensible}
   s.description = %q{Rails plugin providing expanded Unix-like permissions system for Ruby objects}
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.1"

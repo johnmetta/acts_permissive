@@ -1,10 +1,8 @@
-ActsPermissive
-==============
+# Introduction
 
 Individualized role and permission management system for Rails
 
-Installation
-------------
+## Installation
 
 gem 'acts_permissive'
 bundle install
@@ -23,8 +21,7 @@ class User < ActiveRecord::Base
   acts_permissive
 end
 
-The simple examples
-------------------
+## The simple examples
 
 big_guy = User.create_as_owner Thing, {:name => "this instance of thing"}
 
@@ -52,8 +49,7 @@ another_guy.grants.write.on(thing).to(little_guy)
 
 little_guy.can_write? thing -> true
 
-The Gory Details
-----------------
+# The Gory Details
 
 Every "thing" that is_used_permissively has a suite of permissions that are possible on it.
 The permissions are binary and additive.
