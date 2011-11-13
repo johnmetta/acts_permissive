@@ -35,6 +35,16 @@ module ActsPermissive
         end
       end
 
+      def make_owner_of obj
+        if not obj.is_used_permissively?
+          raise "Must be called with an object that is_used_permissively"
+        end
+        membership = Membership.create :user_id => id,
+                                       :power => owner_bin_string,
+                                       :circle_id => obj.circle.id
+        membership.save!
+      end
+
       # Permission granting
       def grant
         mc = MembershipContainer.new
