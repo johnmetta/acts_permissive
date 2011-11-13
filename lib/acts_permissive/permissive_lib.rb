@@ -5,7 +5,7 @@ module ActsPermissive
       if value.class == String
         value.to_i(2)
       elsif value.class == Integer
-        value.to_s(2).rjust(9)
+        value.to_s(2).rjust(9,'0')
       end
     end
 
@@ -17,11 +17,11 @@ module ActsPermissive
       to_bin 128
     end
 
-    def read_bin_string
+    def write_bin_string
       to_bin 64
     end
 
-    def write_bin_string
+    def read_bin_string
       to_bin 32
     end
 

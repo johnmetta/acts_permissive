@@ -80,9 +80,9 @@ class ActsPermissiveTest < ActiveSupport::TestCase
     should "return the correct powers as list" do
       roles = @john.powers_in @thing
       assert roles.length == 2
-      assert roles.include?(ActsPermissive::Membership.read) == true
-      assert roles.include?(ActsPermissive::Membership.write) == true
-      assert roles.include?(ActsPermissive::Membership.admin) == false
+      assert roles.include?(ActsPermissive::Membership.read)
+      assert roles.include?(ActsPermissive::Membership.write)
+      assert roles.include?(ActsPermissive::Membership.owner) == false
     end
 
     should "return the correct power set" #do
