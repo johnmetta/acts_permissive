@@ -4,7 +4,7 @@ class MembershipContainerTest < ActiveSupport::TestCase
 
   context "role methods" do
     setup do
-      @container = ActsPermissive::MembershipContainer.new
+      @container = MembershipContainer.new
     end
 
   end

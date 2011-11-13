@@ -7,7 +7,7 @@ module ActsPermissive
 
     module ClassMethods
       def is_used_permissively
-        has_one :circle, :as => :circleable, :class_name => "ActsPermissive::Circle"
+        has_one :circle, :as => :circleable
         include ActsPermissive::PermissiveObject::InstanceMethods
         include ActsPermissive::PermissiveLib
         validates_presence_of :guid

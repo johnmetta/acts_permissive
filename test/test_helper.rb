@@ -11,7 +11,9 @@ load(File.dirname(__FILE__) + '/schema.rb')
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
-require File.expand_path('../../lib/acts_permissive', __FILE__)
+require File.dirname(__FILE__) + '/../lib/generators/templates/membership.rb'
+require File.dirname(__FILE__) + '/../lib/generators/templates/membership_container.rb'
+require File.dirname(__FILE__) + '/../lib/generators/templates/circle.rb'
 
 require 'shoulda'
 require 'factory_girl'

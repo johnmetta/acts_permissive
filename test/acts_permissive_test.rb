@@ -64,25 +64,25 @@ class ActsPermissiveTest < ActiveSupport::TestCase
   context "power set" do
 
     setup do
-      ActsPermissive::Membership.delete :all
+      Membership.delete :all
       @thing = Factory :thing
       @sam = Factory :sam
       @john = Factory :john
 
       # manually create some memberships
       # give sam 256 permissions- owner
-      ActsPermissive::Membership.create :user_id => @sam.id, :circle_id => @thing.circle.id, :power => ActsPermissive::Membership.owner
+      Membership.create :user_id => @sam.id, :circle_id => @thing.circle.id, :power => Membership.binary_owner
       #give john 64 and 32 permissions- write & read
-      ActsPermissive::Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => ActsPermissive::Membership.write
-      ActsPermissive::Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => ActsPermissive::Membership.read
+      Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => Membership.binary_write
+      Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => Membership.binary_read
     end
 
     should "return the correct powers as list" do
       roles = @john.powers_in @thing
       assert roles.length == 2
-      assert roles.include?(ActsPermissive::Membership.read)
-      assert roles.include?(ActsPermissive::Membership.write)
-      assert roles.include?(ActsPermissive::Membership.owner) == false
+#      assert roles.include?(Membership.binary_read)
+#      assert roles.include?(Membership.binary_write)
+#      assert roles.include?(Membership.binary_owner) == false
     end
 
     should "return the correct power set" #do

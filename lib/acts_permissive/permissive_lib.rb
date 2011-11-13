@@ -1,28 +1,28 @@
 module ActsPermissive
   module PermissiveLib
 
-    def to_bin value
-      if value.class == String
-        value.to_i(2)
-      elsif value.class == Integer
-        value.to_s(2).rjust(9,'0')
-      end
+    def binary_owner
+      256.to_s(2).rjust(9, '0')
     end
 
-    def owner_bin_string
-      to_bin 256
+    def binary_admin
+      128.to_s(2).rjust(9, '0')
     end
 
-    def admin_bin_string
-      to_bin 128
+    def binary_write
+      64.to_s(2).rjust(9, '0')
     end
 
-    def write_bin_string
-      to_bin 64
+    def binary_read
+      32.to_s(2).rjust(9, '0')
     end
 
-    def read_bin_string
-      to_bin 32
+    def as_binary value
+      value.to_s(2).rjust(9, '0')
+    end
+
+    def as_integer value
+      value.to_i(2)
     end
 
     private
