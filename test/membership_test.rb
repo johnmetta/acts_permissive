@@ -47,7 +47,6 @@ class MembershipTest < ActiveSupport::TestCase
       @membership.grant 32
       assert @membership.power == "000100000"
       @membership.revoke 4
-      puts @membership.to_yaml
       assert @membership.power == "000100000"
       @membership.grant 5
       assert @membership.power == "000100101"

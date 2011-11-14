@@ -64,7 +64,7 @@ class MembershipContainer
       Membership.create(:user => user, :power => power, :circle => circle).save!
     else
       Membership.where("user_id == #{user.id}")
-                                .where("circle_id == #{default_circle.id}")
+                                .where("circle_id == #{circle.id}")
                                 .where("power == #{power}")
                                 .each do |m|
         m.destroy!

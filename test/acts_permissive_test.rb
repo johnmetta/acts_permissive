@@ -104,19 +104,15 @@ class ActsPermissiveTest < ActiveSupport::TestCase
 
     setup do
       Membership.delete :all
-      @thing = Factory :thing
       @sam = Factory :sam
+      @thing = @sam.create_as_owner Thing
       @john = Factory :john
-
-      # manually create some memberships
-      # give sam 256 permissions- owner
-      Membership.create :user_id => @sam.id, :circle_id => @thing.circle.id, :power => Membership.binary_owner
-      #give john 64 and 32 permissions- write & read
-      Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => Membership.binary_write
-      Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => Membership.binary_read
+      @sam.grant.read.on(@thing).to(@john)
+      @sam.grant.write.on(@thing).to(@john)
     end
 
     should "return the correct power set" do
+      puts @john.powers_in(@thing)
       assert @john.powers_in(@thing) == 16 + 32
       assert @sam.powers_in(@thing) == 255
     end
