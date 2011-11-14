@@ -15,7 +15,7 @@ class IsUsedPermissively < ActiveSupport::TestCase
 
     should "default to public" do
       @thing.is_public?
-      Factory(:sam).reads?(@thing)
+      Factory(:sam).can_read?(@thing)
     end
 
     should "be valid" do

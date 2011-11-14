@@ -69,49 +69,34 @@ module ActsPermissive
 
       def powers_in obj
         circle = get_circle_for obj
-        powers = []
-        Membership.by_user(self).by_circle(circle).each do |membership|
-          # Need to re
-          powers << membership.power
+        membership = Membership.by_user(self).by_circle(circle).first
+        if membership
+          membership.power.to_i(2)
+        else
+          0
         end
-        powers
-      end
-
-      def power_set_in obj
-        circle = get_circle_for obj
-        self.powers_in(circle).inject(0) { |result, power| result | as_integer(power)}
       end
 
       def owns? obj
         circle = get_circle_for obj
-        power_set_in(circle) & 256 == 256
+        powers_in(circle) & 128 == 128
       end
 
       def can_admin? obj
-        admins?(obj) || owns?(obj)
+        circle = get_circle_for obj
+        powers_in(circle) & 64 == 64
       end
       def can_write? obj
-        writes?(obj) || owns?(obj)
+        circle = get_circle_for obj
+        powers_in(circle) & 32 == 32
       end
       def can_read? obj
         circle = get_circle_for obj
-        circle.is_public || reads?(obj) || owns?(obj)
-      end
-      def can_see? obj
-        can_read?(obj) || can_write?(obj) || can_admin?(obj) || owns?(obj)
+        powers_in(circle) & 16 == 16
       end
 
-      def admins? obj
-        circle = get_circle_for obj
-        power_set_in(circle) & 128 == 128
-      end
-      def writes? obj
-        circle = get_circle_for obj
-        power_set_in(circle) & 64 == 64
-      end
-      def reads? obj
-        circle = get_circle_for obj
-        power_set_in(circle) & 32 == 32
+      def can_see? obj
+        can_read?(obj) || can_write?(obj) || can_admin?(obj) || owns?(obj)
       end
 
     end

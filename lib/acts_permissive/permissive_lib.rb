@@ -2,23 +2,23 @@ module ActsPermissive
   module PermissiveLib
 
     def binary_owner
-      256.to_s(2).rjust(9, '0')
+      255.to_s(2).rjust(8, '0')
     end
 
     def binary_admin
-      128.to_s(2).rjust(9, '0')
+      127.to_s(2).rjust(8, '0')
     end
 
     def binary_write
-      64.to_s(2).rjust(9, '0')
+      32.to_s(2).rjust(8, '0')
     end
 
     def binary_read
-      32.to_s(2).rjust(9, '0')
+      16.to_s(2).rjust(8, '0')
     end
 
     def as_binary value
-      value.to_s(2).rjust(9, '0')
+      value.to_s(2).rjust(8, '0')
     end
 
     def as_integer value

@@ -22,19 +22,19 @@ class MembershipTest < ActiveSupport::TestCase
 
     should "correctly create owner string" do
       assert_kind_of String, Membership.binary_owner
-      assert Membership.binary_owner == "100000000"
+      assert Membership.binary_owner == "11111111"
     end
     should "correctly create admin string" do
       assert_kind_of String, Membership.binary_admin
-      assert Membership.binary_admin == "010000000"
+      assert Membership.binary_admin == "01111111"
     end
     should "correctly create write string" do
       assert_kind_of String, Membership.binary_write
-      assert Membership.binary_write == "001000000"
+      assert Membership.binary_write == "00100000"
     end
     should "correctly create read string" do
       assert_kind_of String, Membership.binary_read
-      assert Membership.binary_read == "000100000"
+      assert Membership.binary_read == "00010000"
     end
   end
 
@@ -43,6 +43,16 @@ class MembershipTest < ActiveSupport::TestCase
       @membership = Membership.new
     end
 
-    should "be defined"
+    should "grant powers correctly" do
+      @membership.grant 32
+      assert @membership.power == "000100000"
+      @membership.revoke 4
+      puts @membership.to_yaml
+      assert @membership.power == "000100000"
+      @membership.grant 5
+      assert @membership.power == "000100101"
+      @membership.revoke 4
+      assert @membership.power == "000100001"
+    end
   end
 end

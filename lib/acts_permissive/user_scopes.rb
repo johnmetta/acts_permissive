@@ -5,22 +5,22 @@ module ActsPermissive
     # let us also call include and other filters.
     def owners_of obj
       circle = get_circle_for obj
-      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 256.to_s(2).rjust(9), circle.id).select("DISTINCT `users`.*")
+      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 128.to_s(2).rjust(8,'0'), circle.id).select("DISTINCT `users`.*")
     end
 
     def admins_of obj
       circle = get_circle_for obj
-      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 128.to_s(2).rjust(9), circle.id).select("DISTINCT `users`.*")
+      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 64.to_s(2).rjust(8,'0'), circle.id).select("DISTINCT `users`.*")
     end
 
     def readers_of obj
       circle = get_circle_for obj
-      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 64.to_s(2).rjust(9), circle.id).select("DISTINCT `users`.*")
+      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 32.to_s(2).rjust(8,'0'), circle.id).select("DISTINCT `users`.*")
     end
 
     def writers_of obj
       circle = get_circle_for obj
-      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 32.to_s(2).rjust(9), circle.id).select("DISTINCT `users`.*")
+      joins(:memberships).where('memberships.power = ? AND memberships.circle_id = ?', 16.to_s(2).rjust(8,'0'), circle.id).select("DISTINCT `users`.*")
     end
 
     def get_circle_for obj

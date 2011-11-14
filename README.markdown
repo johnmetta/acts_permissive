@@ -52,5 +52,18 @@ little_guy.can_write? thing -> true
 # The Gory Details
 
 Every "thing" that is_used_permissively has a suite of permissions that are possible on it.
-The permissions are binary and additive.
+The permissions are binary and additive and users who are acts_permissive can have any arbitrary
+collection of those permissions on any individual object. Permissions are stored in a join table
+which basically has three properties- the object's "circle" (a polymorphic model), the user, and
+the "power." Power is a string of 1s and 0s representing a permission set.
+
+## acts_permissive
+
+Objects that call acts_permissive (currently, this should really just be one single User object)
+are given the ability to hold byte-additive permissions on individual object instances.
+
+## is_used_permissively
+
+## Membership
+
 

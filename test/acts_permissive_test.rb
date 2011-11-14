@@ -27,10 +27,9 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       assert @sam.respond_to? :memberships
       assert @sam.respond_to? :is_member_of?
       assert @sam.respond_to? :powers_in
-      assert @sam.respond_to? :power_set_in
-      assert @sam.respond_to? :reads?
-      assert @sam.respond_to? :writes?
-      assert @sam.respond_to? :admins?
+      assert @sam.respond_to? :can_read?
+      assert @sam.respond_to? :can_write?
+      assert @sam.respond_to? :can_admin?
       assert @sam.respond_to? :owns?
       assert @sam.respond_to? :grant
       assert @sam.respond_to? :revoke
@@ -117,18 +116,9 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       Membership.create :user_id => @john.id, :circle_id => @thing.circle.id, :power => Membership.binary_read
     end
 
-    should "return the correct powers as list" do
-      roles = @john.powers_in @thing
-      assert roles.length == 2
-      assert_kind_of Array, roles
-      assert roles.include?(Membership.binary_write)
-      assert roles.include?(Membership.binary_read)
-      assert roles.include?(Membership.binary_owner) == false
-    end
-
     should "return the correct power set" do
-      assert @john.power_set_in(@thing) == 32 + 64
-      assert @sam.power_set_in(@thing) == 256
+      assert @john.powers_in(@thing) == 16 + 32
+      assert @sam.powers_in(@thing) == 255
     end
 
   end
@@ -160,8 +150,8 @@ class ActsPermissiveTest < ActiveSupport::TestCase
       assert @john.can_read? @thing
       assert @john.can_write? @thing
 
-      assert @sam.can_read?(@thing) == false
-      assert @sam.can_write?(@thing) == false
+      assert @sam.can_read?(@thing)
+      assert @sam.can_write?(@thing)
 
       assert @bob.can_read?(@thing)
       assert @bob.can_write?(@thing) == false

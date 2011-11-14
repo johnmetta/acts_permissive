@@ -68,16 +68,16 @@ class PermissiveLibTest < ActiveSupport::TestCase
     end
 
     should "return the correct permission strings" do
-      assert LibTestExtended.binary_owner == "100000000"
-      assert LibTestExtended.binary_admin == "010000000"
-      assert LibTestExtended.binary_write == "001000000"
-      assert LibTestExtended.binary_read == "000100000"
+      assert LibTestExtended.binary_owner == "11111111"
+      assert LibTestExtended.binary_admin == "01111111"
+      assert LibTestExtended.binary_write == "00100000"
+      assert LibTestExtended.binary_read ==  "00010000"
     end
 
     should "return the correct value as a binary string" do
-      assert LibTestExtended.as_binary(1) == "000000001"
-      assert LibTestExtended.as_binary(16) == "000010000"
-      assert LibTestExtended.as_binary(42) == "000101010"
+      assert LibTestExtended.as_binary(1) ==  "00000001"
+      assert LibTestExtended.as_binary(16) == "00010000"
+      assert LibTestExtended.as_binary(42) == "00101010"
     end
 
     should "return the correct integer from a string" do
