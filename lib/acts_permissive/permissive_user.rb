@@ -7,10 +7,10 @@ module ActsPermissive
 
     module ClassMethods
       def acts_permissive
-        has_many  :circle_owners, :as => :ownable, :class_name => "ActsPermissive::CircleOwners"
-        has_many  :owned_circles, :through => :circle_owners, :source => :ownable, :class_name => 'ActsPermissive::PermissiveCircle'
-        has_many :groupings, :as => :grouper
-        has_many :permissions, :through => :groupings, :class_name => "PermissivePermission"
+        has_many  :circlings, :as => :user_circler, :class_name => "ActsPermissive::Circling"
+        has_many  :circles, :through => :circlings, :class_name => 'ActsPermissive::Circle'
+        has_many :groupings, :as => :grouper, :class_name => "ActsPermissive::Grouping"
+        has_many :permissions, :through => :groupings, :class_name => "ActsPermissive::Permission"
         include ActsPermissive::PermissiveUser::InstanceMethods
 
       end
@@ -22,17 +22,17 @@ module ActsPermissive
         true
       end
 
-      def build_circle name = "Unnamed Circle", objects = []
-#        circle = ActsPermissive::PermissiveCircle.new( :name => name )
-        circle = self.owned_circles.build(:name => name)
+      def build_circle name = "Unnamed Circle", objects = [], mask = 255
+        circle = self.circles.build(:name => name)
+        perm = permissions.build(:circle => circle, :mask => mask)
+        perm.save!
         objects.each do |o|
           o.circles << circle if o.is_used_permissively?
         end
-        if circle.save
-          circle
-        else
+        if !circle.save
           raise ActsPermissive::PermissiveError, circle.errors
         end
+        circle
       end
 
       def permissive_circles

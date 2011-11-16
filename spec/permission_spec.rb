@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
-describe Permission do
+describe ActsPermissive::Permission do
 
   before :each do
     @user = Factory :user
@@ -11,8 +11,8 @@ describe Permission do
 
   describe "class" do
     it "Should respond to class methods" do
-      Permission.respond_to? :on
-      Permission.respond_to? :for
+      ActsPermissive::Permission.respond_to? :on
+      ActsPermissive::Permission.respond_to? :for
     end
   end
 

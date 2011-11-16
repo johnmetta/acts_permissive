@@ -8893,3 +8893,1098 @@ Migrating to CreateWidgets (20111114184731)
   [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 03:52:31 UTC +00:00], ["guid", nil], ["name", "Regular User 13"], ["updated_at", Wed, 16 Nov 2011 03:52:31 UTC +00:00]]
   [1m[35mSQL (0.5ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 03:52:31 UTC +00:00], ["guid", nil], ["name", "Admin User 13"], ["updated_at", Wed, 16 Nov 2011 03:52:31 UTC +00:00]]
   [1m[36mPermissivePermission Load (0.2ms)[0m  [1mSELECT "permissive_permissions".* FROM "permissive_permissions" INNER JOIN "permissive_groupings" ON "permissive_permissions"."id" = "permissive_groupings"."permissive_permission_id" WHERE "permissive_groupings"."grouper_id" = 13 AND "permissive_groupings"."grouper_type" = 'User'[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (10.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (6.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.8ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.8ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.0ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (3.6ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.6ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (3.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (4.6ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (4.3ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (3.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (1.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.8ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (26.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (174.5ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (4.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (40.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:03 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:52:03 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:04 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:52:04 UTC +00:00]]
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:04 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:52:04 UTC +00:00]]
+  [1m[36mSQL (5.4ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:04 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:52:04 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (1.4ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (5.5ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:52:19 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 6"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 6"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Thing 6"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Widget 6"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 7"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 7"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Thing 7"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Widget 7"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 8"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 8"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Thing 8"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Widget 8"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 9"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 9"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Thing 9"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Widget 9"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 10"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 10"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 11"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 11"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 12"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 12"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mActsPermissive::Permission Load (0.2ms)[0m  SELECT "permissive_permissions".* FROM "permissive_permissions" WHERE (permissible_id = 12 AND permissible_type = 'Admin')
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Regular User 13"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00], ["guid", nil], ["name", "Admin User 13"], ["updated_at", Wed, 16 Nov 2011 17:52:20 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.1ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (6.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (10.7ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (10.5ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (8.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00]]
+  [1m[36mSQL (2.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00]]
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:52:47 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:52:48 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.0ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (21.8ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (2.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (2.0ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.3ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (5.4ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.1ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (6.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[35mSQL (3.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:54:15 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[35mSQL (4.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:54:16 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.9ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.8ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (4.6ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.5ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (6.5ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:54:42 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:54:43 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.4ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (3.1ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (7.4ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:55:08 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.8ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (1.2ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (3.9ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (5.3ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (7.9ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (2.8ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.8ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (20.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (48.1ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.4ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (10.6ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (1.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:56:00 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.1ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (2.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (1.1ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.7ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (3.7ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (2.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (4.4ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.7ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (7.6ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:56:27 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:56:28 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.4ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (4.7ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (4.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (1.4ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (6.6ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[36mSQL (33.3ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:56:56 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:56:57 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (2.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.7ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.4ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.9ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.0ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (3.8ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (7.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:57:43 UTC +00:00]]
+  [1m[35mSQL (6.8ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", "4eb91749-476a-428d-8c81-4c430593313a"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mActsPermissive::Circle Load (0.4ms)[0m  [1mSELECT "permissive_circles".* FROM "permissive_circles" INNER JOIN "permissive_circlings" ON "permissive_circles"."id" = "permissive_circlings"."circle_id" WHERE "permissive_circlings"."user_circler_id" = 1 AND "permissive_circlings"."user_circler_type" = 'User' ORDER BY "permissive_circles"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (28.3ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", "838f4ba2-f3a5-47a7-96f4-16509bca1daf"], ["name", [#<Thing id: 2, name: "Thing 2", guid: nil, created_at: "2011-11-16 17:57:44", updated_at: "2011-11-16 17:57:44">, #<Widget id: 2, name: "Widget 2", guid: nil, created_at: "2011-11-16 17:57:44", updated_at: "2011-11-16 17:57:44">]], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", "0e257e3e-3f87-41e4-be04-6e349c495f6f"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", "8a52f41a-f543-41b1-bc6a-ece4df2b6129"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:57:44 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (14.1ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.1ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.1ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.0ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (7.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00], ["guid", "fff2f766-b698-429d-bedf-912463265c3c"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:10 UTC +00:00]]
+  [1m[36mActsPermissive::Circle Load (0.3ms)[0m  [1mSELECT "permissive_circles".* FROM "permissive_circles" INNER JOIN "permissive_circlings" ON "permissive_circles"."id" = "permissive_circlings"."circle_id" WHERE "permissive_circlings"."user_circler_id" = 1 AND "permissive_circlings"."user_circler_type" = 'User' ORDER BY "permissive_circles"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (7.9ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", "bd0fb132-cbf7-40da-a983-1deef042dc89"], ["name", [#<Thing id: 2, name: "Thing 2", guid: nil, created_at: "2011-11-16 17:58:11", updated_at: "2011-11-16 17:58:11">, #<Widget id: 2, name: "Widget 2", guid: nil, created_at: "2011-11-16 17:58:11", updated_at: "2011-11-16 17:58:11">]], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", "bbf77a43-5189-44c0-b4a5-97e5f2ee8511"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", "d8353d5d-8e8b-4f2d-b2c8-a7ea9a0c8a46"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:58:11 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (20.7ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.2ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (6.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.2ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (5.2ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (8.6ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[35mSQL (1.7ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", "a1feb771-03e6-49ae-9722-9f76b7070e8f"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[36mActsPermissive::Circle Load (0.4ms)[0m  [1mSELECT "permissive_circles".* FROM "permissive_circles" INNER JOIN "permissive_circlings" ON "permissive_circles"."id" = "permissive_circlings"."circle_id" WHERE "permissive_circlings"."user_circler_id" = 1 AND "permissive_circlings"."user_circler_type" = 'User' ORDER BY "permissive_circles"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[35mSQL (10.9ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00], ["guid", "2fe8d238-192f-471c-9526-628e39d5bede"], ["name", [#<Thing id: 2, name: "Thing 2", guid: nil, created_at: "2011-11-16 17:58:37", updated_at: "2011-11-16 17:58:37">, #<Widget id: 2, name: "Widget 2", guid: nil, created_at: "2011-11-16 17:58:37", updated_at: "2011-11-16 17:58:37">]], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:37 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36mSQL (1.6ms)[0m  [1mINSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", "0160d2fb-c781-41b5-813b-2189da82a9a2"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (1.7ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", "e1fa340f-a18d-4b54-a0a2-cfe78d587271"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 17:58:38 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.3ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (4.7ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (4.2ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.4ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (4.0ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (5.1ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.3ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (7.4ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 18:03:21 UTC +00:00]]
+  [1m[35mSQL (1.5ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", "2394595a-7a25-4eb1-be9a-0ca7659dee48"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mActsPermissive::Circle Load (0.3ms)[0m  [1mSELECT "permissive_circles".* FROM "permissive_circles" INNER JOIN "permissive_circlings" ON "permissive_circles"."id" = "permissive_circlings"."circle_id" WHERE "permissive_circlings"."user_circler_id" = 1 AND "permissive_circlings"."user_circler_type" = 'User' ORDER BY "permissive_circles"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (11.5ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", "74023d15-cecc-4ae8-a272-75086ef8760b"], ["name", [#<Thing id: 2, name: "Thing 2", guid: nil, created_at: "2011-11-16 18:03:22", updated_at: "2011-11-16 18:03:22">, #<Widget id: 2, name: "Widget 2", guid: nil, created_at: "2011-11-16 18:03:22", updated_at: "2011-11-16 18:03:22">]], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", "7e4f5d3a-87c3-49b6-ae54-29556c382064"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", "7407a6ec-0445-4e19-a191-69a336b14ce3"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 18:03:22 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (12.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (5.7ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (10.8ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (3.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (6.2ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (7.1ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (31.3ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (11.4ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (4.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (7.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (15.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00]]
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00]]
+  [1m[36mSQL (2.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 18:04:56 UTC +00:00]]
+  [1m[35mSQL (14.7ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", "8d7f799d-fa9f-4718-95b6-b6ced97491c8"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mActsPermissive::Circle Load (0.4ms)[0m  [1mSELECT "permissive_circles".* FROM "permissive_circles" INNER JOIN "permissive_circlings" ON "permissive_circles"."id" = "permissive_circlings"."circle_id" WHERE "permissive_circlings"."user_circler_id" = 1 AND "permissive_circlings"."user_circler_type" = 'User' ORDER BY "permissive_circles"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (14.3ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", "936e03d1-7e2c-42f9-b4bf-c7f41dcac33a"], ["name", [#<Thing id: 2, name: "Thing 2", guid: nil, created_at: "2011-11-16 18:04:57", updated_at: "2011-11-16 18:04:57">, #<Widget id: 2, name: "Widget 2", guid: nil, created_at: "2011-11-16 18:04:57", updated_at: "2011-11-16 18:04:57">]], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", "9d9e12c4-294d-4172-a6e2-11e071691490"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (2.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (1.5ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", "2477652c-9ff2-49e3-bb1d-4d7902be434b"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 18:04:57 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.0ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.9ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (1.4ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (4.7ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.1ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (2.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.3ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (5.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00]]
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 18:05:22 UTC +00:00]]
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", "b52eab62-0c5f-4fa4-a15d-b87f3ecc7ec5"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mActsPermissive::Circle Load (0.3ms)[0m  [1mSELECT "permissive_circles".* FROM "permissive_circles" INNER JOIN "permissive_circlings" ON "permissive_circles"."id" = "permissive_circlings"."circle_id" WHERE "permissive_circlings"."user_circler_id" = 1 AND "permissive_circlings"."user_circler_type" = 'User' ORDER BY "permissive_circles"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (11.3ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", "0513a642-461c-4f21-a402-807d35b836d6"], ["name", [#<Thing id: 2, name: "Thing 2", guid: nil, created_at: "2011-11-16 18:05:23", updated_at: "2011-11-16 18:05:23">, #<Widget id: 2, name: "Widget 2", guid: nil, created_at: "2011-11-16 18:05:23", updated_at: "2011-11-16 18:05:23">]], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", "f29b49ca-75db-4dd2-82f9-7c1533d3ecc6"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "permissive_circles" ("circleable_id", "circleable_type", "created_at", "guid", "name", "ownable_id", "ownable_type", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)  [["circleable_id", nil], ["circleable_type", nil], ["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", "6bdbff55-a550-4128-b180-744a8e36b241"], ["name", "Unnamed Circle"], ["ownable_id", nil], ["ownable_type", nil], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 18:05:23 UTC +00:00]]
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (2.0ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (4.2ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (3.1ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (2.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateUsers (20111114184611)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184611')[0m
+Migrating to CreateAdmins (20111114184654)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "admins" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184654')[0m
+Migrating to CreateThings (20111114184712)
+  [1m[35m (0.7ms)[0m  CREATE TABLE "things" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184712')[0m
+Migrating to CreateWidgets (20111114184731)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "widgets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111114184731')[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "permissive_permissions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permissible_id" integer, "permissible_type" varchar(255), "circle_id" integer, "mask" integer DEFAULT 0 NOT NULL) 
+  [1m[36m (2.4ms)[0m  [1mCREATE TABLE "groupings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "permission_id" integer, "grouper_id" integer, "grouper_type" varchar(255)) [0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "permissive_circles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "guid" varchar(255), "circleable_type" varchar(255), "circleable_id" integer, "ownable_type" varchar(255), "ownable_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (2.4ms)[0m  [1mCREATE TABLE "permissive_circlings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "thing_circler_type" varchar(255), "thing_circler_id" integer, "user_circler_type" varchar(255), "user_circler_id" integer, "circle_id" integer) [0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[35mSQL (8.1ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Regular User 1"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Admin User 1"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Thing 1"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Widget 1"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Regular User 2"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Admin User 2"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Thing 2"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Widget 2"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Regular User 3"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Admin User 3"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Thing 3"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Widget 3"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Regular User 4"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Admin User 4"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Thing 4"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Widget 4"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "users" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Regular User 5"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "admins" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Admin User 5"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "things" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Thing 5"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]
+  [1m[36mSQL (1.7ms)[0m  [1mINSERT INTO "widgets" ("created_at", "guid", "name", "updated_at") VALUES (?, ?, ?, ?)[0m  [["created_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00], ["guid", nil], ["name", "Widget 5"], ["updated_at", Wed, 16 Nov 2011 18:07:31 UTC +00:00]]

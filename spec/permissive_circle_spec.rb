@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
-describe Circle do
+describe ActsPermissive::Circle do
 
   before :each do
     @user = Factory :user
@@ -12,7 +12,7 @@ describe Circle do
   describe "class" do
     it "should be buildable by the user" do
       circle = @user.build_circle
-      circle.should be_an_instance_of(Circle)
+      circle.should be_an_instance_of(ActsPermissive::Circle)
       @user.circles.last.should be(circle)
     end
 

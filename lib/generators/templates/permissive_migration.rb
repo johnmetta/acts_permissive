@@ -3,12 +3,12 @@ class ActsPermissiveMigration < ActiveRecord::Migration
     create_table :permissive_permissions do |t|
       t.integer :permissible_id
       t.string  :permissible_type
-      t.integer :permissive_circle_id
+      t.integer :circle_id
       t.integer :mask, :null => false, :default => 0
     end
 
     create_table :permissive_groupings do |t|
-      t.integer :permissive_permission_id
+      t.integer :permission_id
       t.integer :grouper_id
       t.string  :grouper_type
     end
@@ -29,7 +29,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.integer   :thing_circler_id
       t.string    :user_circler_type
       t.integer   :user_circler_id
-      t.integer   :permissive_circle_id
+      t.integer   :circle_id
     end
 
     add_index :permissive_permissions, [:permissive_user_id, :permissive_user_type], :name => "users_index"
