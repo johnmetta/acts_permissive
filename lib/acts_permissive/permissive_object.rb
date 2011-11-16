@@ -7,51 +7,22 @@ module ActsPermissive
 
     module ClassMethods
       def is_used_permissively
-        has_one :circle, :as => :circleable
-        include ActsPermissive::PermissiveObject::InstanceMethods
-        include ActsPermissive::PermissiveLib
-        validates_presence_of :guid
-        before_validation :build_guid_and_circle
+        has_many  :permissive_circlings, :as => :thing_circler
+        has_many  :permissive_circles, :through => :permissive_circlings, :class_name => "PermissiveCircle"
+        include   ActsPermissive::PermissiveObject::InstanceMethods
       end
+
     end
 
     module InstanceMethods
 
-      # Returns true if this instance is following the object passed as an argument.
       def is_used_permissively?
         true
       end
 
-      def is_public?
-        circle.is_public
+      def circles
+        permissive_circles
       end
-
-      def circle_of_trust
-        circle
-      end
-
-      #############################################################
-
-      def make_private!
-        self.circle.is_public = false
-        self.circle.save!
-      end
-
-      def make_public!
-        self.circle.is_public = true
-        self.circle.save!
-      end
-
-      private
-
-      # Creates a default object
-      def build_guid_and_circle
-        create_guid!
-        self.circle = Circle.create(:name => self.guid, :is_hidden => true, :is_public => false)
-        raise self.circle.errors if not self.circle.save
-      end
-
     end
-
   end
 end

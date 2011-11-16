@@ -1,4 +1,0 @@
-Description:
-    rails generate acts_permissive
-
-    the acts_permissive_migration file will be created in db/migrate

@@ -8,3 +8,5 @@ test/dummy/tmp/
 .autotest
 */**/coverage
 coverage/
+.DS_Store
+

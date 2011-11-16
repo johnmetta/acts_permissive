@@ -1,3 +1,3 @@
 module ActsPermissive
-  class PermissiveException < StandardError; end
+  class PermissiveError < StandardError; end
 end

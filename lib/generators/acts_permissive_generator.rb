@@ -20,13 +20,7 @@ class ActsPermissiveGenerator < Rails::Generators::Base
   end
 
   def create_migration_file
-    migration_template 'migration.rb', 'db/migrate/acts_permissive_migration.rb'
-  end
-
-  def create_model
-    template "circle.rb", File.join('app/models', "circle.rb")
-    template "membership.rb", File.join('app/models', "membership.rb")
-    template "membership_container.rb", File.join('app/models', "membership_container.rb")
+    migration_template 'migration.rb', "db/migrate/#{next_migration_number(File.john(File.dirname(__FILE__)))}_acts_permissive_migration.rb"
   end
 
 end
