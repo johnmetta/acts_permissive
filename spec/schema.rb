@@ -7,7 +7,7 @@ ActiveRecord::Schema.define :version => 0 do
     t.integer :mask, :null => false, :default => 0
   end
 
-  create_table :groupings do |t|
+  create_table :permissive_groupings do |t|
     t.integer :permission_id
     t.integer :grouper_id
     t.string  :grouper_type
