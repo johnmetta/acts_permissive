@@ -17,10 +17,11 @@ describe ActsPermissive::Circle do
     end
 
     it "should be buildable with objects" do
-#      circle = @admin.build_circle :objects => [@thing, @widget]
-#      circle.items.should_not be_nil
-#      circle.items.length == 2
-#      circle.items.include?(@thing).should be_true
+      circle = @admin.build_circle :objects => [@thing, @widget]
+      circle.items.should_not be_nil
+      circle.items.length.should == 2
+      puts circle.items.to_yaml
+      circle.items.include?(@thing).should be_true
     end
 
     it "should have a guid" do

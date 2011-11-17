@@ -21,8 +21,8 @@ ActiveRecord::Schema.define :version => 0 do
    create_table :permissive_circlings do |t|
      t.string    :circleable_type
      t.integer   :circleable_id
-     t.string    :ownable_type
-     t.integer   :ownable_id
+     t.string    :usable_type
+     t.integer   :usable_id
      t.integer   :circle_id
    end
 

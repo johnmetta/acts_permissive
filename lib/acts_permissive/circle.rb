@@ -8,6 +8,10 @@ module ActsPermissive
     before_validation :create_guid!
     before_save :set_name!
 
+    def items
+      Circling.items_in(self)
+    end
+
     private
 
     def create_guid!

@@ -26,9 +26,6 @@ describe ActsPermissive::PermissiveUser do
       @user.circles.should be_an_instance_of Array
     end
 
-    it "should have a list of permitted circles" do
-      @admin.permissive_circles.should be_a_kind_of Array
-    end
   end
 
   describe "permissions" do

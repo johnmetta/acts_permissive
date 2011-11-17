@@ -21,8 +21,8 @@ class ActsPermissiveMigration < ActiveRecord::Migration
     create_table :permissive_circlings do |t|
       t.string    :circleable_type
       t.integer   :circleable_id
-      t.string    :ownable_type
-      t.integer   :ownable_id
+      t.string    :usable_type
+      t.integer   :usable_id
       t.integer   :circle_id
     end
 
@@ -36,7 +36,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
     add_index :permissive_circles, :name, :name => "circle_name_index"
 
     add_index :permissive_circlings, [:circleable_id, :circleable_type], :name => "thing_circling_index"
-    add_index :permissive_circlings, [:ownable_id, :ownable_type], :name => "user_circling_index"
+    add_index :permissive_circlings, [:usable_id, :usable_type], :name => "user_circling_index"
     add_index :permissive_circlings, :circle_id, :name => "circle_circling_index"
   end
 
