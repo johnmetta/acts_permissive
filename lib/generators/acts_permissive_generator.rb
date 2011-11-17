@@ -20,7 +20,7 @@ class ActsPermissiveGenerator < Rails::Generators::Base
   end
 
   def create_migration_file
-    migration_template 'migration.rb', "db/migrate/#{ActsPermissiveGenerator.next_migration_number(File.join(File.dirname(__FILE__)))}_acts_permissive_migration.rb"
+    migration_template 'permissive_migration.rb', "db/migrate/#{ActsPermissiveGenerator.next_migration_number(File.join(File.dirname(__FILE__)))}_acts_permissive_migration.rb"
   end
 
 end
