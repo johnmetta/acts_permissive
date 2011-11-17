@@ -7,7 +7,7 @@ module ActsPermissive
 
     module ClassMethods
       def is_used_permissively
-        has_many  :circlings, :as => :thing_circler, :class_name => "ActsPermissive::Circling"
+        has_many  :circlings, :as => :circleable, :class_name => "ActsPermissive::Circling"
         has_many  :circles, :through => :circlings, :class_name => "ActsPermissive::Circle"
         include   ActsPermissive::PermissiveObject::InstanceMethods
       end

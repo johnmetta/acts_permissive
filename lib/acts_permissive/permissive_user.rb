@@ -7,9 +7,9 @@ module ActsPermissive
 
     module ClassMethods
       def acts_permissive
-        has_many  :circlings, :as => :user_circler, :class_name => "ActsPermissive::Circling"
+        has_many  :circlings, :as => :ownable, :class_name => "ActsPermissive::Circling"
         has_many  :circles, :through => :circlings, :class_name => 'ActsPermissive::Circle'
-        has_many :groupings, :as => :grouper, :class_name => "ActsPermissive::Grouping"
+        has_many :groupings, :as => :permissible, :class_name => "ActsPermissive::Grouping"
         has_many :permissions, :through => :groupings, :class_name => "ActsPermissive::Permission"
         include ActsPermissive::PermissiveUser::InstanceMethods
 
@@ -22,11 +22,15 @@ module ActsPermissive
         true
       end
 
-      def build_circle name = "Unnamed Circle", objects = [], mask = 255
-        circle = self.circles.build(:name => name)
-        perm = permissions.build(:circle => circle, :mask => mask)
-        perm.save!
-        objects.each do |o|
+      def build_circle params = {}
+        params[:name] = "Unnamed Circle" if params[:name].nil?
+        params[:mask] = 255 if params[:mask].nil?
+        params[:objects] = [] if params[:objects].nil?
+
+        circle = self.circles.build(:name => params[:name])
+        perm = permissions.build(:circle => circle, :mask => params[:mask])
+        save!
+        params[:objects].each do |o|
           o.circles << circle if o.is_used_permissively?
         end
         if !circle.save

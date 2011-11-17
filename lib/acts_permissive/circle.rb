@@ -2,8 +2,6 @@ module ActsPermissive
   class Circle < ActiveRecord::Base
 
     has_many    :permissive_circlings
-    belongs_to  :circleable, :polymorphic => true
-    belongs_to  :ownable, :polymorphic => true
 
     set_table_name  :permissive_circles
     validates_presence_of :guid
