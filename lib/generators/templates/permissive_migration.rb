@@ -32,12 +32,17 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.integer   :circle_id
     end
 
-    add_index :permissive_permissions, [:permissive_user_id, :permissive_user_type], :name => "users_index"
+    add_index :permissive_permissions, [:permissible_id, :permissible_type], :name => "users_index"
     add_index :permissive_permissions, :circle_id, :name => "circles_index"
-    add_index :permissive_permissions, :masx, :name => "masks_masks"
+    add_index :permissive_permissions, :mask, :name => "masks_masks"
     add_index :permissive_circles, :guid, :name => "circle_guids_index"
     add_index :permissive_circles, [:circleable_id, :circleable_type], :name => "circle_objects_index"
     add_index :permissive_circles, [:ownable_id, :ownable_type], :name => "circle_owners_index"
+    add_index :permissive_groupings, [:grouper_id, :grouper_type], :name => "grouper_index"
+    add_index :permissive_groupings, :permission_id, :name => "permission_grouping_index"
+    add_index :permissive_circlings, [:thing_circler_id, :thing_circler_type], :name => "thing_circling_index"
+    add_index :permissive_circlings, [:user_circler_id, :user_circler_type], :name => "user_circling_index"
+    add_index :permissive_circlings, :circle_id, :name => "circle_circling_index"
   end
 
   def self.down
