@@ -47,7 +47,7 @@ describe ActsPermissive::PermissiveUser do
     end
 
     it "should return a boolean for the correct permissions" do
-      @user.can!(:write, :in => @admin_circle)
+      @perm = @user.can!(:write, :in => @admin_circle)
       @user.can?(:read, :in => @admin_circle).should be_false
       @user.can?(:write, :in => @admin_circle).should be_true
       @admin.can?(:admin, :in => @admin_circle).should be_true

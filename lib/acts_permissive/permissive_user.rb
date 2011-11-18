@@ -66,13 +66,13 @@ module ActsPermissive
           perm.mask = perm.mask & bit != 0 ? 0 : perm.mask | bit
         end
 
-        raise PermissiveError, "Cannot save permission: #{perm.errors}" if not perm.save!
+        raise PermissiveError, "Cannot save permission: #{perm.errors}" if not save!
         perm
       end
 
       def can? *args
         options = args.extract_options!
-        options.assert_valid_keys(:in, :reset)
+        options.assert_valid_keys(:in, :reset, :see)
 
         #if we're checking for :see, return right away
         if options[:see]
@@ -89,13 +89,13 @@ module ActsPermissive
         else
           #add up the bits and do a bitwise and to check permissions
           bits = args.select{|o| o.class == Symbol}.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p }
-          puts "##############"
-          puts bits
           perm.mask & bits == bits
         end
       end
 
+      def revoke! *args
 
+      end
     end
   end
 end
