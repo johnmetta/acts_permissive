@@ -23,23 +23,34 @@ module ActsPermissive
       end
 
       def build_circle params = {}
+        #Set up the option defaults
         params[:name] = "Unnamed Circle" if params[:name].nil?
         params[:mask] = 255 if params[:mask].nil?
         params[:objects] = [] if params[:objects].nil?
 
-        circle = self.circles.build(:name => params[:name])
-        circle.save!
-        perm = permissions.build(:circle => circle, :mask => params[:mask])
-        perm.save!
-        self.save!
-        params[:objects].each do |o|
-          o.circles << circle if o.is_used_permissively?
-          o.save!
-        end
-        if !circle.save
-          raise ActsPermissive::PermissiveError, circle.errors
-        end
+        #Build the circle and set the permissions mask
+        circle = circles.build(:name => params[:name])
+        permissions.build(:circle => circle, :mask => params[:mask])
+        save!
+
+        #If there are any objects in the list that don't respond to is_used_permissively, they
+        # are silently ignored
+        params[:objects].select{|o| o.respond_to? :is_used_permissively?}.each{ |o| o.add_to circle}
+
+        #return for use
         circle
+      end
+
+      def can! *args
+        options = args.extract_options!
+        options.assert_valid_keys(:on, :reset)
+        if options[:on]
+          permission = Permission.for(self).on(options[:on])
+          permission = permissions.build(:circle => options[:on]) if permission.nil?
+          puts permission.to_yaml
+          raise PermissiveError, "Uh oh, ambiguous permission mapping" if permission.class != Permission
+        end
+        permission
       end
 
     end

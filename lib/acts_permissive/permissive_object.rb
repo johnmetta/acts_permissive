@@ -20,6 +20,10 @@ module ActsPermissive
         true
       end
 
+      def add_to circle
+        self.circles << circle
+        save!
+      end
     end
   end
 end

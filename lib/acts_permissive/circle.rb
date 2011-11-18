@@ -9,7 +9,7 @@ module ActsPermissive
     before_save :set_name!
 
     def items
-      Circling.items_in(self)
+      Circling.items_in self
     end
 
     private

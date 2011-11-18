@@ -7,12 +7,14 @@ module ActsPermissive
 
     set_table_name  :permissive_circlings
 
-    scope :items_in, lambda { |circle|
-      where(:circle_id => circle.id).map{|c| c.circleable}.compact
-    }
-    scope :users_in, lambda { |circle|
-      where(:circle_id => circle.id).map{|c| c.usable}.compact
-    }
+    class << self
+      def items_in circle
+        where(:circle_id => circle.id).map{|c| c.circleable }.compact
+      end
+      def users_in circle
+        where(:circle_id => circle.id).map{|c| c.usable }.compact
+      end
+    end
 
   end
 end
