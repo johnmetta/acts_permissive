@@ -1,7 +1,7 @@
 module ActsPermissive
   class Circle < ActiveRecord::Base
 
-    has_many    :permissive_circlings
+    has_many    :permissive_circlings, :dependent => :destroy
 
     set_table_name  :permissive_circles
     validates_presence_of :guid

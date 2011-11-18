@@ -50,10 +50,11 @@ Spork.each_run do
 
   # Setup some test PermissionMap
   module ActsPermissive::PermissionMap
-    READ = 0
-    WRITE = 1
-    ADMIN = 2
-    OWNER = 3
+    SEE = 0
+    READ = 1
+    WRITE = 2
+    ADMIN = 3
+    OWNER = 4
   end
 
 end

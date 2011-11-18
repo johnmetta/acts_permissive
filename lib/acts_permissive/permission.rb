@@ -1,16 +1,17 @@
 module ActsPermissive
   class Permission < ActiveRecord::Base
 
-    has_many    :groupings
+    has_many    :groupings, :dependent => :destroy
     belongs_to  :circle
 
     validates_presence_of :circle, :mask
     set_table_name  :permissive_permissions
-    scope :on, lambda { |circle|
+
+    scope :in, lambda { |circle|
       where("circle_id = #{circle.id}")
     }
     scope :for, lambda { |user|
-      joins(:groupings).where("permissive_groupings.permissible_id = #{user.id} AND permissive_groupings.permissible_type = #{user.class.to_s}")
+      joins(:groupings).where("permissive_groupings.permissible_id = #{user.id} AND permissive_groupings.permissible_type = '#{user.class.to_s}'")
     }
 
     class << self
@@ -19,7 +20,8 @@ module ActsPermissive
       end
     end
 
+    def reset
 
-
+    end
   end
 end
