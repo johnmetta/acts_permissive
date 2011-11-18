@@ -72,7 +72,7 @@ module ActsPermissive
 
       def can? *args
         options = args.extract_options!
-        options.assert_valid_keys(:in, :reset, :see)
+        options.assert_valid_keys(:in, :see)
 
         #if we're checking for :see, return right away
         if options[:see]
@@ -94,7 +94,23 @@ module ActsPermissive
       end
 
       def revoke! *args
+        options = args.extract_options!
+        options.assert_valid_keys(:in, :all)
 
+        #We should probably be careful with this one. Acts_as_paranoid?
+        if options[:all]
+          Permission.for(self).destroy_all
+        end
+
+        # We're only using this if there are circles- not on generic objects, which should be INSIDE circles
+        raise PermissiveError, "Must be called with a circle as an argument" if options[:in].nil?
+
+        bits = args.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p }
+        #Get the permissions and return
+        perm = permissions_in options[:in]
+        perm.mask = perm.mask ^ bits if perm.mask & bits
+
+        perm.save!
       end
     end
   end

@@ -53,6 +53,13 @@ describe ActsPermissive::PermissiveUser do
       @admin.can?(:admin, :in => @admin_circle).should be_true
       @admin.can?(:see => @user_circle).should be_false
     end
+
+    it "should correctly see objects" do
+      @admin.can?(:see => @user_circle).should be_false
+      @admin.can?(:see => @admin_circle).should be_true
+      @user.can?(:see => @user_circle).should be_true
+      @user.can?(:see => @admin_circle).should be_false
+    end
   end
 
   describe "permissions methods" do
@@ -62,5 +69,14 @@ describe ActsPermissive::PermissiveUser do
       @user.permissions_in(@user_circle).mask.should == 31
     end
 
+  end
+
+  describe "revoking permissions" do
+    it "should correctly revoke permissions" do
+      @user.can!(:read, :write, :admin, :in => @admin_circle)
+      @admin.can!(:read, :write, :in => @user_circle)
+      @admin.permissions_in(@user_circle).mask & 6 == 6
+      @user.permissions_in(@admin_circle).mask & 14 == 14
+    end
   end
 end
