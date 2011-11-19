@@ -12,6 +12,10 @@ module ActsPermissive
       Circling.items_in self
     end
 
+    def users
+      # Return all users with any privleges in this circle
+    end
+
     private
 
     def create_guid!

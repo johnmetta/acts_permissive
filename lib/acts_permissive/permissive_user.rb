@@ -44,7 +44,15 @@ module ActsPermissive
       end
 
       def permissions_in circle
+        raise PermissiveError, "Must be an ActsPermissive::Circle instance" if not circle.class == Circle
         Permission.for(self).in(circle).first
+      end
+
+      def permissions_for obj
+        # Return the permissions that the user has on a given object.
+        # Note that the object can be in multiple circles, so this is a complex join
+        # of all permissions for this user for all circles in which the object exists
+        # NOTE: It's not entirely sure this is necessary. At least not for phase 1
       end
 
       def can! *args

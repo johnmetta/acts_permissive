@@ -29,6 +29,11 @@ module ActsPermissive
         save!
       end
 
+      def users_who_can *args
+        # Get a list of users who can do whatever symbol based permissions are
+        # listed. For instance
+        # authors = @thing.users_who_can(:read, :write)
+      end
     end
   end
 end
