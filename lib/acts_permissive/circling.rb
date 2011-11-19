@@ -15,6 +15,5 @@ module ActsPermissive
         where(:circle_id => circle.id).map{|c| c.usable }.compact
       end
     end
-
   end
 end

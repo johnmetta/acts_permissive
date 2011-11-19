@@ -24,6 +24,11 @@ module ActsPermissive
         self.circles << circle
         save!
       end
+      def remove_from circle
+        self.circles.delete circle
+        save!
+      end
+
     end
   end
 end

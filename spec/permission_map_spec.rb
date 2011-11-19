@@ -39,5 +39,27 @@ describe ActsPermissive::PermissionMap do
         ActsPermissive::PermissionMap.hash
       }.should_not raise_error(ActsPermissive::PermissiveError)
     end
+
+    it "Should not allow strings, symbols or floats" do
+      raise_exception ActsPermissive::PermissiveError do
+        module PermissionMap
+          FIRST = 1
+          SECOND = :two
+        end
+      end
+      raise_exception ActsPermissive::PermissiveError do
+        module PermissionMap
+          FIRST = 1
+          SECOND = "two"
+        end
+      end
+      raise_exception ActsPermissive::PermissiveError do
+        module PermissionMap
+          FIRST = 1
+          SECOND = 2.2
+        end
+      end
+
+    end
   end
 end

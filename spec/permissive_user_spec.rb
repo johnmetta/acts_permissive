@@ -19,8 +19,14 @@ describe ActsPermissive::PermissiveUser do
   end
 
   describe "circles" do
-    it "should have a list of circles" do
+    it "should have a list of circles it owns" do
       @user.circles.should be_an_instance_of Array
+    end
+
+    it "should have a list of all circles it has permissions for" do
+#      @user.can!(:read, :in => @admin_circle)
+#      @user.circles.include?(@admin_circle).should be_false
+#      @user.all_circles.include?(@admin_circle).should be_true
     end
   end
 
@@ -60,6 +66,12 @@ describe ActsPermissive::PermissiveUser do
       @user.can?(:see => @user_circle).should be_true
       @user.can?(:see => @admin_circle).should be_false
     end
+
+    it "should return false for a user without permissions" do
+      new_user = Factory :user
+      new_user.can?(:see => @user_circle).should be_false
+      new_user.can?(:read, :in => @user_circle).should be_false
+    end
   end
 
   describe "permissions methods" do
@@ -75,8 +87,21 @@ describe ActsPermissive::PermissiveUser do
     it "should correctly revoke permissions" do
       @user.can!(:read, :write, :admin, :in => @admin_circle)
       @admin.can!(:read, :write, :in => @user_circle)
-      @admin.permissions_in(@user_circle).mask & 6 == 6
-      @user.permissions_in(@admin_circle).mask & 14 == 14
+      @admin.can?(:read, :write, :admin, :in => @user_circle)
+      @user.can?(:read, :write, :in => @admin_circle)
+
+      @user.revoke!(:write, :admin, :in => @admin_circle)
+      @admin.revoke!(:write, :in => @user_circle)
+      @admin.can?(:write, :in => @user_circle).should be_false
+      @user.can?(:read, :in => @admin_circle).should be_true
+      @user.can?(:write, :in => @admin_circle).should be_false
+      @user.can?(:admin, :in => @admin_circle).should be_false
+
+      @user.revoke!(:all, :in => @admin_circle)
+      [:read, :write, :see, :admin, :owner].each do |p|
+        @user.can?(p, :in => @admin_circle).should be_false
+      end
     end
   end
+
 end

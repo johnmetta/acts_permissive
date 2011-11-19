@@ -7,6 +7,7 @@ describe ActsPermissive::PermissiveObject do
     @admin = Factory :admin
     @thing = Factory :thing
     @widget = Factory :widget
+    @circle = @user.build_circle :objects => [@thing]
   end
 
   describe "class" do
@@ -22,6 +23,16 @@ describe ActsPermissive::PermissiveObject do
 
     it "should have an array of circles" do
       @widget.circles.should be_an_instance_of Array
+    end
+
+    it "Should be addable to a circle" do
+      @widget.add_to @circle
+      @circle.items.include?(@widget).should be_true
+    end
+
+    it "should be removable from a circle" do
+      @thing.remove_from @circle
+      @circle.items.include?(@thing).should be_false
     end
 
   end

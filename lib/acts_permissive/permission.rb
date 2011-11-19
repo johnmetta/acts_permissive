@@ -11,7 +11,7 @@ module ActsPermissive
       where("circle_id = #{circle.id}")
     }
     scope :for, lambda { |user|
-      joins(:groupings).where("permissive_groupings.permissible_id = #{user.id} AND permissive_groupings.permissible_type = '#{user.class.to_s}'")
+      joins(:groupings).where("permissive_groupings.permissible_id = #{user.id} AND permissive_groupings.permissible_type = '#{user.class.to_s}'").readonly(false)
     }
 
     class << self
