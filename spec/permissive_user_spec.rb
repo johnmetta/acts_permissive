@@ -88,6 +88,9 @@ describe ActsPermissive::PermissiveUser do
       @user.permissions_in(@admin_circle).mask.should == 0
     end
 
+    it "should ignore resetting if user has no permissions in the circle" do
+      @user.reset_permissions!(:in => @admin_circle).should be_nil
+    end
 
   end
 

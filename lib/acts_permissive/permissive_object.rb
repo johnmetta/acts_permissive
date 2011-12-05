@@ -44,6 +44,9 @@ module ActsPermissive
 
         users = []
 
+        # Go through each user, go though each permission that user has for this object
+        # (i.e. in all the objects circles), and if there's a permission that matches,
+        # add the user to the list of users.
         all_users.each do |user|
           user.permissions_for(self).each do |perm|
             if args.include?(:see)
@@ -59,6 +62,8 @@ module ActsPermissive
             end
           end
         end
+
+        # we lazily add users in a loop, instead of using SQL, so we have to return only the unique set
         users.uniq
       end
     end
