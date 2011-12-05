@@ -13,7 +13,7 @@ module ActsPermissive
     end
 
     def users
-      # Return all users with any privleges in this circle
+      Circling.users_in self
     end
 
     private
@@ -21,6 +21,7 @@ module ActsPermissive
     def create_guid!
       self.guid = UUIDTools::UUID.random_create.to_str if self.guid.nil?
     end
+
     def set_name!
       self.name = self.guid if self.name.nil?
     end

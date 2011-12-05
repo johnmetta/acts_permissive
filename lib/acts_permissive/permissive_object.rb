@@ -29,10 +29,25 @@ module ActsPermissive
         save!
       end
 
-      def users_who_can *args
+      #TODO: Refactor this shit!
+      def all_who_can *args
         # Get a list of users who can do whatever symbol based permissions are
         # listed. For instance
-        # authors = @thing.users_who_can(:read, :write)
+        # authors = @thing.all_who_can(:read, :write)
+        all_users = []
+        circles.each do |c|
+          c.users.each do |u|
+            all_users << u
+          end
+        end
+        all_users.uniq!
+
+        users = []
+
+        args.each do |arg|
+          all_users.map{|u| u.can?(arg)}.compact.each{|u| users << u}
+        end
+        users
       end
     end
   end

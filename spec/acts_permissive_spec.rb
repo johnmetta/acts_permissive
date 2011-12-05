@@ -27,7 +27,7 @@ describe ActsPermissive do
   end
 
   it "Should return proper circling membership for users" do
-    ActsPermissive::Circling.users_in(@admin_circle).should == [@admin]
+    ActsPermissive::Circling.users_in(@admin_circle).should == [@admin, @new_user]
     ActsPermissive::Circling.users_in(@user_circle).should == [@user]
   end
 end

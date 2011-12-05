@@ -36,7 +36,6 @@ module ActsPermissive
 
         #If there are any objects in the list that don't respond to is_used_permissively, they
         # are silently ignored
-        #TODO: Check permissions on objects before adding them!
         params[:objects].select{|o| o.respond_to? :is_used_permissively?}.each{ |o| o.add_to circle}
 
         #return for use
@@ -55,18 +54,33 @@ module ActsPermissive
         # NOTE: It's not entirely sure this is necessary. At least not for phase 1
       end
 
+      def reset_permissions! *args
+        options = args.extract_options!
+        options.assert_valid_keys(:in)
+        # We're only using this if there are circles- not on generic objects, which should be INSIDE circles
+        raise PermissiveError, "Must be called with a circle as an argument" if options[:in].nil?
+
+        #get the permission, or build it if it doesn't exist
+        perm = permissions_in(options[:in])
+        if perm.nil?
+          return
+        end
+        perm.reset!
+      end
+
       def can! *args
         options = args.extract_options!
-        options.assert_valid_keys(:in, :reset)
+        options.assert_valid_keys(:in)
 
         # We're only using this if there are circles- not on generic objects, which should be INSIDE circles
         raise PermissiveError, "Must be called with a circle as an argument" if options[:in].nil?
 
         #get the permission, or build it if it doesn't exist
-        perm = permissions_in(options[:in]) || permissions.build(:circle => options[:in])
-
-        # Reset the permission if that's what we're into
-        perm.reset if options[:reset]
+        perm = permissions_in(options[:in])
+        if perm.nil?
+          perm = permissions.build(:circle => options[:in])
+          circles << options[:in]
+        end
 
         # For each permission, bitwise OR them together unless we have a zero, in which case we just ignore
         args.select{|o| o.class == Symbol}.each do |name|

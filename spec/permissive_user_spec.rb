@@ -81,6 +81,14 @@ describe ActsPermissive::PermissiveUser do
       @user.permissions_in(@user_circle).mask.should == 31
     end
 
+    it "should allow resetting of permissions" do
+      @user.can!(:admin, :read, :in => @admin_circle)
+      @user.permissions_in(@admin_circle).mask.should == 10
+      @user.reset_permissions!(:in => @admin_circle)
+      @user.permissions_in(@admin_circle).mask.should == 0
+    end
+
+
   end
 
   describe "revoking permissions" do
@@ -102,6 +110,10 @@ describe ActsPermissive::PermissiveUser do
         @user.can?(p, :in => @admin_circle).should be_false
       end
     end
+  end
+
+  describe "query methods" do
+    it "should return all permissions for a given object"
   end
 
 end

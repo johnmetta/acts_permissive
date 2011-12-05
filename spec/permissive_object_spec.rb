@@ -37,4 +37,39 @@ describe ActsPermissive::PermissiveObject do
 
   end
 
+  describe "all_who_can" do
+
+    before :each do
+      @admin.can!(:admin, :in => @circle)
+      @anne = Factory :user
+      @debbie = Factory :user
+      @anne.can!(:read, :in => @circle)
+    end
+
+    it "should return a list of users who can perform the given functions" do
+      [@user, @anne].each do |u|
+        @thing.all_who_can(:read).include?(u).should be_true
+      end
+
+      [@user, @admin].each do |u|
+        @thing.all_who_can(:admin).include?(u).should be_true
+      end
+    end
+
+    it "should not include users who can't perform the function" do
+
+      [@admin, @debbie, @anne].each do |u|
+        @thing.all_who_can(:write).include?(u).should be_false
+      end
+    end
+
+    it "Should correctly show all users who can :see an object" do
+      [@admin, @anne, @user].each do |u|
+        @thing.all_who_can(:see).include?(u).should be_true
+      end
+      @thing.all_who_can(:see).include?(@debbie).should be_false
+    end
+
+  end
+
 end

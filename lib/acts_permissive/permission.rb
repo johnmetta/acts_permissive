@@ -23,8 +23,9 @@ module ActsPermissive
       end
     end
 
-    def reset
-
+    def reset!
+      self.mask = 0
+      save!
     end
   end
 end
