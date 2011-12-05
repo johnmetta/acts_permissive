@@ -113,7 +113,24 @@ describe ActsPermissive::PermissiveUser do
   end
 
   describe "query methods" do
-    it "should return all permissions for a given object"
+
+    it "should return all permissions for a given object" do
+      @admin.permissions_for(@thing).should have(0).items
+
+      @admin.can!(:read, :in => @user_circle)
+      @admin.permissions_for(@thing).should have(1).item
+
+      another_circle = @user.build_circle :name => "blah", :objects => [@thing]
+      @admin.can!(:write, :in => another_circle)
+      @admin.permissions_for(@thing).should have(2).items
+
+      @admin.permissions_for(@widget).should have(1).item
+      @user.permissions_for(@widget).should have(0).items
+
+      @user.permissions_for(@thing).first.mask.should == 31
+
+    end
+
   end
 
 end

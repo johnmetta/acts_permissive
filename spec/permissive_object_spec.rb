@@ -70,6 +70,10 @@ describe ActsPermissive::PermissiveObject do
       @thing.all_who_can(:see).include?(@debbie).should be_false
     end
 
+    it "should throw an error when using :see with other permissions" do
+
+    end
+
   end
 
 end

@@ -44,10 +44,22 @@ module ActsPermissive
 
         users = []
 
-        args.each do |arg|
-          all_users.map{|u| u.can?(arg)}.compact.each{|u| users << u}
+        all_users.each do |user|
+          user.permissions_for(self).each do |perm|
+            if args.include?(:see)
+              raise PermissiveError, "Can only use :see as an option by itself" if args.count > 1
+              # We're already here, so permissions is not nil, so just add the user
+              # if permissions_for returns a blank list, the user can't "see" this object,
+              # but we'd never get here because the .each loop would just not happen
+              users << user
+            else
+              #add up the bits and do a bitwise and to check permissions
+              bits = args.select{|o| o.class == Symbol}.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p}
+              users << user if perm.mask & bits == bits
+            end
+          end
         end
-        users
+        users.uniq
       end
     end
   end
