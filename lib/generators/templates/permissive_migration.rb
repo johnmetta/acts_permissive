@@ -43,5 +43,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
   def self.down
     drop_table :permissive_circles
     drop_table :permissive_permissions
+    drop_table :permissive_circlings
+    drop_table :permissive_groupings
   end
 end
