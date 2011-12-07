@@ -9,9 +9,7 @@ module ActsPermissive
       def acts_permissive
         include ActsPermissive::PermissiveUser::InstanceMethods
 
-        has_many  :circlings, :as => :usable, :class_name => "ActsPermissive::Circling"
-        has_many  :circles, :through => :circlings, :class_name => 'ActsPermissive::Circle',:dependent => :destroy
-        has_many :groupings, :as => :permissible, :class_name => "ActsPermissive::Grouping"
+        has_many :groupings, :as => :permissible, :class_name => "ActsPermissive::Grouping", :dependent => :destroy
         has_many :permissions, :through => :groupings, :class_name => "ActsPermissive::Permission", :dependent => :destroy
 
       end
@@ -23,6 +21,10 @@ module ActsPermissive
         true
       end
 
+      def circles
+        Circle.by_user self
+      end
+
       def build_circle params = {}
         #Set up the option defaults
         params[:name] = "Unnamed Circle" if params[:name].nil?
@@ -30,7 +32,7 @@ module ActsPermissive
         params[:objects] = [] if params[:objects].nil?
 
         #Build the circle and set the permissions mask
-        circle = circles.build(:name => params[:name])
+        circle = Circle.create(:name => params[:name])
         permissions.build(:circle => circle, :mask => params[:mask])
         save!
 
@@ -76,7 +78,6 @@ module ActsPermissive
         perm = permissions_in(options[:in])
         if perm.nil?
           perm = permissions.build(:circle => options[:in])
-          circles << options[:in]
         end
 
         # For each permission, bitwise OR them together unless we have a zero, in which case we just ignore

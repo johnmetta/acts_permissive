@@ -7,9 +7,13 @@ module ActsPermissive
 
     module ClassMethods
       def is_used_permissively
-        has_many  :circlings, :as => :circleable, :class_name => "ActsPermissive::Circling"
+        has_many  :circlings, :as => :circleable, :class_name => "ActsPermissive::Circling", :dependent => :destroy
         has_many  :circles, :through => :circlings, :class_name => "ActsPermissive::Circle"
         include   ActsPermissive::PermissiveObject::InstanceMethods
+
+        scope :who_can_see, lambda {|obj|
+          Grouping.by_object(obj).map{|u| u.permissible}.compact
+        }
       end
 
     end
@@ -18,6 +22,10 @@ module ActsPermissive
 
       def is_used_permissively?
         true
+      end
+
+      def who_can_see
+        Grouping.by_object(self).map{|u| u.permissible}.compact
       end
 
       def add_to circle
@@ -34,20 +42,14 @@ module ActsPermissive
         # Get a list of users who can do whatever symbol based permissions are
         # listed. For instance
         # authors = @thing.all_who_can(:read, :write)
-        all_users = []
-        circles.each do |c|
-          c.users.each do |u|
-            all_users << u
-          end
-        end
-        all_users.uniq!
+
 
         users = []
 
         # Go through each user, go though each permission that user has for this object
         # (i.e. in all the objects circles), and if there's a permission that matches,
         # add the user to the list of users.
-        all_users.each do |user|
+        self.class.who_can_see(self).each do |user|
           user.permissions_for(self).each do |perm|
             if args.include?(:see)
               raise PermissiveError, "Can only use :see as an option by itself" if args.count > 1

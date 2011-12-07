@@ -35,6 +35,17 @@ describe ActsPermissive::PermissiveObject do
       @circle.items.include?(@thing).should be_false
     end
 
+    it "should respond to who_can_see" do
+      @thing.class.respond_to?(:who_can_see).should be_true
+      @thing.respond_to?(:who_can_see).should be_true
+    end
+
+    it "should return permissible classes with who_can_see" do
+      @thing.who_can_see.each do |u|
+        u.acts_permissive?.should be_true
+      end
+    end
+
   end
 
   describe "all_who_can" do
@@ -44,6 +55,17 @@ describe ActsPermissive::PermissiveObject do
       @anne = Factory :user
       @debbie = Factory :user
       @anne.can!(:read, :in => @circle)
+      @widget = Factory :widget
+      @widget.add_to @circle
+    end
+
+    it "should correctly scope who_can_see" do
+      puts __FILE__
+      puts @widget.who_can_see.to_yaml
+      [@anne, @admin, @user].each do |u|
+        @widget.who_can_see.include?(u).should be_true
+      end
+      @widget.who_can_see.include?(@debbie).should be_false
     end
 
     it "should return a list of users who can perform the given functions" do

@@ -43,7 +43,6 @@ describe ActsPermissive::Permission do
       ActsPermissive::Permission.for(@new_user).count.should == 2
     end
 
-    it "should return a list of users given a permission mask"
   end
 
 end

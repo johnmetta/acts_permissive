@@ -13,9 +13,6 @@ module ActsPermissive
     scope :for, lambda { |user|
       joins(:groupings).where("permissive_groupings.permissible_id = #{user.id} AND permissive_groupings.permissible_type = '#{user.class.to_s}'").readonly(false)
     }
-    scope :users_by_permission, lambda { |mask|
-      #return all users who have AT LEAST the permissions sent in by mask.
-    }
 
     class << self
       def bit_for permission

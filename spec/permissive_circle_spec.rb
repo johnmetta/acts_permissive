@@ -73,4 +73,33 @@ describe ActsPermissive::Circle do
 
   end
 
+  describe "scopes" do
+    before :each do
+      @user = Factory :user
+      @circles = []
+      %w{one two three four five blah yada}.each do |w|
+        @circles << @user.build_circle( :name => w)
+      end
+
+    end
+
+    it "should return a list of users" do
+      another_user = Factory :user
+      another_user.can!(:read, :in => @circles.first)
+      @circles.first.users.include?(@user).should be_true
+      @circles.first.users.include?(another_user).should be_true
+    end
+
+    it "should return a list of the user-like class' circles" do
+      @user.circles.should have(7).items
+      @circles.each do |c|
+        @user.circles.include?(c).should be_true
+      end
+    end
+
+    it "should return a list of all circles for a given user" do
+      # Look both ways.
+      ActsPermissive::Circle.by_user(@user).should =~ @circles
+    end
+  end
 end

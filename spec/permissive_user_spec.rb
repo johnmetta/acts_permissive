@@ -20,13 +20,12 @@ describe ActsPermissive::PermissiveUser do
 
   describe "circles" do
     it "should have a list of circles it owns" do
-      @user.circles.should be_an_instance_of Array
+      @user.circles.should have(1).item
     end
 
     it "should have a list of all circles it has permissions for" do
-#      @user.can!(:read, :in => @admin_circle)
-#      @user.circles.include?(@admin_circle).should be_false
-#      @user.all_circles.include?(@admin_circle).should be_true
+      @user.can!(:read, :in => @admin_circle)
+      @user.circles.include?(@admin_circle).should be_true
     end
   end
 
@@ -98,8 +97,8 @@ describe ActsPermissive::PermissiveUser do
     it "should correctly revoke permissions" do
       @user.can!(:read, :write, :admin, :in => @admin_circle)
       @admin.can!(:read, :write, :in => @user_circle)
-      @admin.can?(:read, :write, :admin, :in => @user_circle)
-      @user.can?(:read, :write, :in => @admin_circle)
+      @admin.can?(:read, :write, :in => @user_circle).should be_true
+      @user.can?(:read, :write, :admin, :in => @admin_circle).should be_true
 
       @user.revoke!(:write, :admin, :in => @admin_circle)
       @admin.revoke!(:write, :in => @user_circle)
