@@ -55,13 +55,10 @@ describe ActsPermissive::PermissiveObject do
       @anne = Factory :user
       @debbie = Factory :user
       @anne.can!(:read, :in => @circle)
-      @widget = Factory :widget
       @widget.add_to @circle
     end
 
     it "should correctly scope who_can_see" do
-      puts __FILE__
-      puts @widget.who_can_see.to_yaml
       [@anne, @admin, @user].each do |u|
         @widget.who_can_see.include?(u).should be_true
       end

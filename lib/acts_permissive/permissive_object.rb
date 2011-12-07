@@ -43,25 +43,21 @@ module ActsPermissive
         # listed. For instance
         # authors = @thing.all_who_can(:read, :write)
 
+        if args.include?(:see)
+          raise PermissiveError, "Can only use :see as an option by itself" if args.count > 1
+          return who_can_see
+        end
 
         users = []
 
         # Go through each user, go though each permission that user has for this object
         # (i.e. in all the objects circles), and if there's a permission that matches,
         # add the user to the list of users.
-        self.class.who_can_see(self).each do |user|
+        who_can_see.each do |user|
           user.permissions_for(self).each do |perm|
-            if args.include?(:see)
-              raise PermissiveError, "Can only use :see as an option by itself" if args.count > 1
-              # We're already here, so permissions is not nil, so just add the user
-              # if permissions_for returns a blank list, the user can't "see" this object,
-              # but we'd never get here because the .each loop would just not happen
-              users << user
-            else
-              #add up the bits and do a bitwise and to check permissions
-              bits = args.select{|o| o.class == Symbol}.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p}
-              users << user if perm.mask & bits == bits
-            end
+            #add up the bits and do a bitwise and to check permissions
+            bits = args.select{|o| o.class == Symbol}.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p}
+            users << user if perm.mask & bits == bits
           end
         end
 
