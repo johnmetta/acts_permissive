@@ -15,8 +15,8 @@ module ActsPermissive
     }
 
     scope :by_object, lambda {|obj|
-      joins("inner join permissive_circlings on permissive_circlings.circleable_type == '#{obj.class.to_s}' AND permissive_circlings.circleable_id == #{obj.id}").
-      joins("inner join permissive_permissions on permissive_permissions.circle_id == permissive_circlings.id").
+      joins("left outer join permissive_circlings on permissive_circlings.circleable_type == '#{obj.class.to_s}' AND permissive_circlings.circleable_id == #{obj.id}").
+      joins("left outer join permissive_permissions on permissive_permissions.circle_id == permissive_circlings.id").
       where("permissive_groupings.permission_id == permissive_permissions.id").
       select("DISTINCT `permissive_groupings`.*")
     }

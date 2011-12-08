@@ -28,12 +28,12 @@ module ActsPermissive
         Grouping.by_object(self).map{|u| u.permissible}.compact
       end
 
-      def add_to circle
-        self.circles << circle
+      def add_to *args
+        args.each{|c| self.circles << c}
         save!
       end
-      def remove_from circle
-        self.circles.delete circle
+      def remove_from *args
+        args.each{|c| self.circles.delete c}
         save!
       end
 
