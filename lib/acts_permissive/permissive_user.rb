@@ -17,7 +17,7 @@ module ActsPermissive
 
     module InstanceMethods
 
-      def is_permissive?
+      def acts_permissive?
         true
       end
 

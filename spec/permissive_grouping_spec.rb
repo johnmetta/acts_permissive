@@ -24,8 +24,15 @@ describe ActsPermissive::Grouping do
       ActsPermissive::Grouping.by_object(@thing).should have(1).item
       @admin.can!(:read, :in => @user_circle)
       @admin.can?(:read, :in => @user_circle).should be_true
+      # Should now have a grouping for @thing
       ActsPermissive::Grouping.by_object(@thing).should have(2).items
+      # but should not have a grouping for @widget
       ActsPermissive::Grouping.by_object(@widget).should have(1).items
+
+      %w{one two three}.each do |o|
+        Factory(:user).can!(:read, :in => @user_circle)
+      end
+      ActsPermissive::Grouping.by_object(@thing).should have(5).items
       end
   end
 end

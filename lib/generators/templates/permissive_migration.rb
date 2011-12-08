@@ -1,16 +1,21 @@
 class ActsPermissiveMigration < ActiveRecord::Migration
   def self.up
+
+    # This table holds a mask of permissions and links to a specific circle
     create_table :permissive_permissions do |t|
       t.integer :circle_id
       t.integer :mask, :null => false, :default => 0
     end
 
+    # This table polymorphically joins arbitrary acts_permissive objects to
+    # the permissions table
     create_table :permissive_groupings do |t|
       t.integer :permission_id
       t.integer :permissible_id
       t.string  :permissible_type
     end
 
+    # This defines the actual names of the circles ("yada", "super-awesome-people", "banana")
     create_table :permissive_circles do |t|
       t.string  :name
       t.string  :guid
@@ -18,6 +23,8 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.timestamps
     end
 
+    # This table polymorphically joins arbitrary is_used_permissively objects
+    # to the circles table
     create_table :permissive_circlings do |t|
       t.string    :circleable_type
       t.integer   :circleable_id
