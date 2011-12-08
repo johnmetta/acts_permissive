@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.authors     = ["John Metta"]
   s.email       = ["mail@johnmetta.com"]
   s.homepage    = "https://github.com/mettadore/acts_permissive"
-  s.summary     = "Blah blah"
-  s.description = "yada yada"
+  s.summary     = "Arbitrary permissions system for Rails objects"
+  s.description = "Allows for arbitrary permissions on arbitrary collections of objects, rather than system-wide role based management"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.1"
