@@ -64,12 +64,16 @@ It's all a bit complicated to talk about, because we're not used to being able t
     photo.add_to public_circle
 
     friend = User.create :name => "friend"
+    foe = Admin.create :name => "foe"
 
     friend.can! :read, :write, :in => public_circle
     friend.can! :read, :in => private_circle
 
     friend.can?(:read, :in => private_circle) -> true
     friend.can?(:write, :in => private_circle) -> false
+
+    foe.can?(:read, :in => public_circle) -> false
+    foe.can?(:read, :in => private_circle) -> false
 
     journal.all_who_can(:read).include?(friend) -> true
 
@@ -86,14 +90,17 @@ That's how acts_permissive works. It's based on the "circle of trust" for specif
  of Rails objects.
 
 So, there are some people. There's me:
+
     john = User.create :name => "John"
 
 and there are others:
+
     wife = User.create :name => "Jessica"
     buddy = User.create :name => "Bill"
     boss = Admin.create :name => "Hugh"
 
 And there are some things that I want to control access to:
+
     tv = Thing.create :name => "television"
     couch = Thing.create :name => "couch"
     stapler = Widget.create :name => "Swingline"
@@ -152,5 +159,3 @@ and all the objects in a circle, regardless of type:
 
     private.items -> [stapler, toothbrush]
     world.items -> [stapler, toothbrush, couch, tv]
-
-
