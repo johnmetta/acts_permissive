@@ -58,13 +58,19 @@ It's all a bit complicated to talk about, because we're not used to being able t
     friend_circle = user_a.build_circle :name => "Stuff for my friends"
 
     journal = Thing.create :name => "Journal"
-    photo = Thing.create :name => "photos"
+    photo = Widget.create :name => "photos"
+
+
+    journal.is_used_permissively? -> true
 
     journal.add_to private_circle
     photo.add_to public_circle
 
     friend = User.create :name => "friend"
     foe = Admin.create :name => "foe"
+
+    friend.acts_permissive? -> true
+    foe.acts_permissive? -> true
 
     friend.can! :read, :write, :in => public_circle
     friend.can! :read, :in => private_circle
