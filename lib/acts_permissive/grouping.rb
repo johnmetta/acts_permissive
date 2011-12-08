@@ -15,7 +15,7 @@ module ActsPermissive
     }
 
     scope :by_object, lambda {|obj|
-      # somewhat of a hack...
+      # using find_by_sql, because we can't figure out how to make it work with joins() and where()
       self.find_by_sql("
         SELECT DISTINCT pg.*
         FROM (
