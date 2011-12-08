@@ -11,6 +11,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.string  :permissible_type
     end
 
+    # This defines the actual names of the circles ("yada", "super-awesome-people", "banana")
     create_table :permissive_circles do |t|
       t.string  :name
       t.string  :guid
@@ -18,6 +19,7 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.timestamps
     end
 
+    # This just defines whether the circle is for a Thing or a User
     create_table :permissive_circlings do |t|
       t.string    :circleable_type
       t.integer   :circleable_id

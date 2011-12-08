@@ -15,10 +15,19 @@ module ActsPermissive
     }
 
     scope :by_object, lambda {|obj|
-      joins("inner join permissive_circlings on permissive_circlings.circleable_type == '#{obj.class.to_s}' AND permissive_circlings.circleable_id == #{obj.id}").
-      joins("inner join permissive_permissions on permissive_permissions.circle_id == permissive_circlings.id").
-      where("permissive_groupings.permission_id == permissive_permissions.id").
-      select("DISTINCT `permissive_groupings`.*")
+      # somewhat of a hack...
+      self.find_by_sql("
+        SELECT DISTINCT pg.*
+        FROM (
+          SELECT circle_id
+          FROM permissive_circlings
+          WHERE circleable_id == #{obj.id}
+          AND circleable_type == '#{obj.class.to_s}') pc
+          INNER JOIN permissive_permissions pp
+            ON pc.circle_id == pp.circle_id
+          INNER JOIN permissive_groupings pg
+            ON pg.permission_id == pp.id
+      ")
     }
 
   end
