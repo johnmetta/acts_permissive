@@ -21,15 +21,18 @@ describe ActsPermissive::Grouping do
     end
 
     it "should return groupings by object" do
-      gp = ActsPermissive::Grouping.by_object(@thing)
-      puts "FIRST TEST", gp.inspect
-      gp.should have(1).item
-      puts "gp.should have(1).item: #{gp.should have(1).item}"
-      puts "user_circle debug", @user_circle.inspect
+      ActsPermissive::Grouping.by_object(@thing).should have(1).item
       @admin.can!(:read, :in => @user_circle)
       @admin.can?(:read, :in => @user_circle).should be_true
+      # Should now have a grouping for @thing
       ActsPermissive::Grouping.by_object(@thing).should have(2).items
-      # ActsPermissive::Grouping.by_object(@widget).should have(1).items
+      # but should not have a grouping for @widget
+      ActsPermissive::Grouping.by_object(@widget).should have(1).items
+
+      %w{one two three}.each do |o|
+        Factory(:user).can!(:read, :in => @user_circle)
+      end
+      ActsPermissive::Grouping.by_object(@thing).should have(5).items
       end
   end
 end
