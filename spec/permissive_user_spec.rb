@@ -13,8 +13,8 @@ describe ActsPermissive::PermissiveUser do
 
   describe "loading" do
     it "should load into arbitrary user models" do
-      @user.is_permissive?.should be_true
-      @admin.is_permissive?.should be_true
+      @user.acts_permissive?.should be_true
+      @admin.acts_permissive?.should be_true
     end
   end
 
