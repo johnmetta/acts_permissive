@@ -6,11 +6,19 @@ module ActsPermissive
     end
 
     module ClassMethods
-      def is_used_permissively
-        has_many  :circlings, :as => :circleable, :class_name => "ActsPermissive::Circling", :dependent => :destroy
-        has_many  :circles, :through => :circlings, :class_name => "ActsPermissive::Circle"
+      def is_used_permissively *args
+        options = args.extract_options!
+        options.assert_valid_keys(:active_resource)
+
         include   ActsPermissive::PermissiveObject::InstanceMethods
 
+        if options[:active_resource]
+          include ActsPermissive::PermissiveObject::ActiveResourceSafeMethods
+        else
+          has_many  :circlings, :as => :circleable, :class_name => "ActsPermissive::Circling", :dependent => :destroy
+          has_many  :circles, :through => :circlings, :class_name => "ActsPermissive::Circle"
+          include   ActsPermissive::PermissiveObject::ActiveRecordSafeMethods
+        end
       end
 
     end
@@ -19,16 +27,6 @@ module ActsPermissive
 
       def is_used_permissively?
         true
-      end
-
-      def add_to *args
-        args.each{|c| self.circles << c}
-        save!
-      end
-
-      def remove_from *args
-        args.each{|c| self.circles.delete c}
-        save!
       end
 
       #TODO: Refactor this shit!
@@ -59,5 +57,47 @@ module ActsPermissive
         users.uniq
       end
     end
+
+    module ActiveRecordSafeMethods
+      def add_to *args
+        args.each{|c| self.circles << c}
+        save!
+      end
+
+      def remove_from *args
+        args.each{|c| self.circles.delete c}
+        save!
+      end
+    end
+
+    module ActiveResourceSafeMethods
+      def circlings
+        ActsPermissive::Circling.all :conditions => {:circleable_id => self.id,
+                                                     :circleable_type => self.class.name}
+      end
+
+      def circles
+        ActsPermissive::Circle.find circlings.map{|i| i.circle_id}
+      end
+
+      def add_to *args
+        args.each do |arg|
+          ActsPermissive::Circling.create! :circleable_id => self.id,
+                           :circleable_type => self.class.name,
+                           :circle_id => arg.id
+        end
+      end
+
+      def remove_from *args
+        args.each do |arg|
+          raise "Must be a circle" if arg.class != Circle
+          circles = ActsPermissive::Circling.first(:conditions => {
+                                  :circle_id => arg.id,
+                                  :circleable_id => self.id,
+                                  :circleable_type => self.class.name}).destroy
+        end
+      end
+    end
+
   end
 end

@@ -19,5 +19,4 @@ end
 
 ActiveRecord::Base.send :include, ActsPermissive::PermissiveUser
 ActiveRecord::Base.send :include, ActsPermissive::PermissiveObject
-ActiveResource::Base.send :include, ActsPermissive::PermissiveUser
 ActiveResource::Base.send :include, ActsPermissive::PermissiveObject

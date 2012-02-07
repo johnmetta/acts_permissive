@@ -12,8 +12,7 @@ module ActsPermissive
     end
 
     initializer "acts_permissive.active_resource" do |app|
-      ActiveSupport.on_load :active_record do
-        include ActsPermissive::PermissiveUser
+      ActiveSupport.on_load :active_resource do
         include ActsPermissive::PermissiveObject
       end
     end
