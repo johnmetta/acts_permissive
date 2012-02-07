@@ -34,18 +34,6 @@ describe ActsPermissive::PermissiveObject do
       @thing.remove_from @circle
       @circle.items.include?(@thing).should be_false
     end
-
-    it "should respond to who_can_see" do
-      @thing.class.respond_to?(:who_can_see).should be_true
-      @thing.respond_to?(:who_can_see).should be_true
-    end
-
-    it "should return permissible classes with who_can_see" do
-      @thing.who_can_see.each do |u|
-        u.acts_permissive?.should be_true
-      end
-    end
-
   end
 
   describe "all_who_can" do
@@ -60,9 +48,9 @@ describe ActsPermissive::PermissiveObject do
 
     it "should correctly scope who_can_see" do
       [@anne, @admin, @user].each do |u|
-        @widget.who_can_see.include?(u).should be_true
+        ActsPermissive::Grouping.who_can_see(@widget).include?(u).should be_true
       end
-      @widget.who_can_see.include?(@debbie).should be_false
+      ActsPermissive::Grouping.who_can_see(@widget).include?(@debbie).should be_false
     end
 
     it "should return a list of users who can perform the given functions" do
@@ -76,7 +64,6 @@ describe ActsPermissive::PermissiveObject do
     end
 
     it "should not include users who can't perform the function" do
-
       [@admin, @debbie, @anne].each do |u|
         @thing.all_who_can(:write).include?(u).should be_false
       end
