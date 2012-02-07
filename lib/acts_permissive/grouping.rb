@@ -30,5 +30,9 @@ module ActsPermissive
       ")
     }
 
+    def self.who_can_see obj
+      by_object(obj).map{|u| u.permissible}.compact
+    end
+
   end
 end

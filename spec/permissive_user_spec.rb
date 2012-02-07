@@ -16,6 +16,16 @@ describe ActsPermissive::PermissiveUser do
       @user.acts_permissive?.should be_true
       @admin.acts_permissive?.should be_true
     end
+
+    it "should return permissible classes with who_can_see" do
+      ActsPermissive::Grouping.who_can_see(@thing).should be_an_instance_of(Array)
+
+      ActsPermissive::Grouping.who_can_see(@thing).include?(@user).should be_true
+      ActsPermissive::Grouping.who_can_see(@widget).include?(@user).should be_false
+
+      ActsPermissive::Grouping.who_can_see(@thing).include?(@admin).should be_false
+      ActsPermissive::Grouping.who_can_see(@widget).include?(@admin).should be_true
+    end
   end
 
   describe "circles" do

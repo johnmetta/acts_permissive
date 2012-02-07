@@ -38,7 +38,7 @@ Spork.prefork do
     config.mock_with :rspec
   end
   require 'factory_girl'
-
+  require 'fakeweb'
 end
 
 Spork.each_run do
