@@ -13,6 +13,7 @@ module ActsPermissive
         has_many :permissions, :through => :groupings, :class_name => "ActsPermissive::Permission", :dependent => :destroy
 
       end
+
     end
 
     module InstanceMethods
@@ -32,8 +33,8 @@ module ActsPermissive
         params[:objects] = [] if params[:objects].nil?
 
         #Build the circle and set the permissions mask
-        circle = Circle.create(:name => params[:name])
-        permissions.build(:circle => circle, :mask => params[:mask])
+        circle = Circle.create :name => params[:name]
+        permissions.build :circle => circle, :mask => params[:mask]
         save!
 
         #If there are any objects in the list that don't respond to is_used_permissively, they
