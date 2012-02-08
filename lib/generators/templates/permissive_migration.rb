@@ -5,6 +5,8 @@ class ActsPermissiveMigration < ActiveRecord::Migration
     create_table :permissive_permissions do |t|
       t.integer :circle_id
       t.integer :mask, :null => false, :default => 0
+
+      t.timestamps
     end
 
     # This table polymorphically joins arbitrary acts_permissive objects to
@@ -13,6 +15,8 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.integer :permission_id
       t.integer :permissible_id
       t.string  :permissible_type
+
+      t.timestamps
     end
 
     # This defines the actual names of the circles ("yada", "super-awesome-people", "banana")
@@ -29,6 +33,8 @@ class ActsPermissiveMigration < ActiveRecord::Migration
       t.string    :circleable_type
       t.integer   :circleable_id
       t.integer   :circle_id
+
+      t.timestamps
     end
 
     add_index :permissive_permissions, :circle_id, :name => "circles_index"
