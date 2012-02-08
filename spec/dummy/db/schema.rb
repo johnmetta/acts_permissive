@@ -41,4 +41,8 @@ ActiveRecord::Schema.define(:version => 20111114184731) do
     t.datetime "updated_at"
   end
 
+  create_table "sub_classes", :force => true do |t|
+    t.string "description"
+  end
+
 end

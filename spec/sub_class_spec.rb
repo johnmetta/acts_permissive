@@ -36,4 +36,71 @@ describe SubClass do
 
   end
 
+  describe "query methods" do
+    before :each do
+      @another_thing = Factory :thing
+      @another_widget = Factory :widget
+      @uc = @user.build_circle :class => SubClass, :name => "blah", :objects => [@thing, @another_thing]
+      @ac = @admin.build_circle :class => SubClass, :name => "yada", :objects => [@widget, @another_widget, @thing]
+    end
+
+    it "should return the list of items in a circle" do
+      @uc.items.should == [@thing, @another_thing]
+      @ac.items.should == [@widget, @another_widget, @thing]
+    end
+
+    it "should return the list of users in a circle" do
+      anne = Factory :user
+      debbie = Factory :user
+      frank = Factory :user
+      anne.can!(:read, :in => @uc)
+      debbie.can!(:read, :write, :in => @uc)
+      frank.can!(:read, :in => @ac)
+
+      [@user, anne, debbie].each do |u|
+        @uc.users.include?(u).should be_true
+      end
+
+      [@admin, frank].each do |u|
+        @ac.users.include?(u).should be_true
+      end
+
+      [@user, anne, debbie].each do |u|
+        @ac.users.include?(u).should_not be_true
+      end
+
+    end
+
+  end
+
+  describe "scopes" do
+    before :each do
+      @user = Factory :user
+      @circles = []
+      %w{one two three four five blah yada}.each do |w|
+        @circles << @user.build_circle(:class => SubClass, :name => w)
+      end
+
+    end
+
+    it "should return a list of users" do
+      another_user = Factory :user
+      another_user.can!(:read, :in => @circles.first)
+      @circles.first.users.include?(@user).should be_true
+      @circles.first.users.include?(another_user).should be_true
+    end
+
+    it "should return a list of the user-like class' circles" do
+      user_circles = @user.circles :of_type => SubClass
+      user_circles.should have(7).items
+      @circles.each do |c|
+        user_circles.include?(c).should be_true
+      end
+    end
+
+    it "should return a list of all circles for a given user" do
+      # Look both ways.
+      SubClass.by_user(@user).should =~ @circles
+    end
+  end
 end

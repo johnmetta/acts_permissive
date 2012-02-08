@@ -24,4 +24,8 @@ ActiveRecord::Schema.define :version => 0 do
      t.integer   :circle_id
    end
 
+  create_table :sub_classes do |t|
+    t.string :description
+  end
+
 end

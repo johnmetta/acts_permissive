@@ -22,8 +22,11 @@ module ActsPermissive
         true
       end
 
-      def circles
-        Circle.by_user self
+      def circles *args
+        params = args.extract_options!
+        params.assert_valid_keys(:of_type)
+        params[:of_type] = Circle if params[:of_type].nil?
+        params[:of_type].by_user self
       end
 
       def build_circle *args
