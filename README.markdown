@@ -83,6 +83,7 @@ It's all a bit complicated to talk about, because we're not used to being able t
 
     journal.all_who_can(:read).include?(friend) -> true
 
+
 ## Bigger example (i.e. Who's allowed in your bedroom?)
 
 Think about the 'circle of trust.' You have a house, and certain people are allowed in your house.
