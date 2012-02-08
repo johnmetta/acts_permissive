@@ -8,4 +8,7 @@ FactoryGirl.define do
     sequence(:name) { |i| "Widget #{i}" }
   end
 
+  factory :sub_class do
+
+  end
 end

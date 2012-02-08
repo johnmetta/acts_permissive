@@ -12,7 +12,7 @@ describe ActsPermissive::Circle do
   describe "class" do
     it "should be buildable by the user" do
       circle = @user.build_circle :name => "blah"
-      circle.should be_an_instance_of(ActsPermissive::Circle)
+      circle.should be_an_kind_of(ActsPermissive::Circle)
       @user.circles.collect{|c| c.name}.should == ["blah"]
     end
 

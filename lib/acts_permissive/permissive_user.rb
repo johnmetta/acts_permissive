@@ -26,14 +26,18 @@ module ActsPermissive
         Circle.by_user self
       end
 
-      def build_circle params = {}
+      def build_circle *args
         #Set up the option defaults
+        params = args.extract_options!
+        params.assert_valid_keys(:name, :mask, :objects, :class)
+
         params[:name] = "Unnamed Circle" if params[:name].nil?
         params[:mask] = 255 if params[:mask].nil?
         params[:objects] = [] if params[:objects].nil?
+        params[:class] = Circle if params[:class].nil?
 
         #Build the circle and set the permissions mask
-        circle = Circle.create :name => params[:name]
+        circle = params[:class].create :name => params[:name]
         permissions.build :circle => circle, :mask => params[:mask]
         save!
 
@@ -46,7 +50,7 @@ module ActsPermissive
       end
 
       def permissions_in circle
-        raise PermissiveError, "Must be an ActsPermissive::Circle instance" if not circle.class == Circle
+        raise PermissiveError, "Must be an ActsPermissive::Circle instance" if not circle.is_a?(Circle)
         Permission.for(self).in(circle).first
       end
 
