@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Allows for arbitrary permissions on arbitrary collections of objects, rather than system-wide role based management"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3.1.1"
   s.add_dependency "uuidtools"
@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simplecov"
   s.add_development_dependency 'growl'
   s.add_development_dependency 'rb-fsevent'
+  s.add_development_dependency 'fakeweb'
 end
