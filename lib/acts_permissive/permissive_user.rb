@@ -7,7 +7,7 @@ module ActsPermissive
 
     module ClassMethods
       def acts_permissive
-        include ActsPermissive::PermissiveUser::InstanceMethods
+        send :include, ActsPermissive::PermissiveUser::InstanceMethods
 
         has_many :groupings, :as => :permissible, :class_name => "ActsPermissive::Grouping", :dependent => :destroy
         has_many :permissions, :through => :groupings, :class_name => "ActsPermissive::Permission", :dependent => :destroy

@@ -17,7 +17,7 @@ module ActsPermissive
         else
           has_many  :circlings, :as => :circleable, :class_name => "ActsPermissive::Circling", :dependent => :destroy
           has_many  :circles, :through => :circlings, :class_name => "ActsPermissive::Circle"
-          include   ActsPermissive::PermissiveObject::ActiveRecordSafeMethods
+          send :include, ActsPermissive::PermissiveObject::ActiveRecordSafeMethods
         end
       end
 
