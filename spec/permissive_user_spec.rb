@@ -84,20 +84,29 @@ describe ActsPermissive::PermissiveUser do
 
     describe "can methods on objects instead of circles" do
 
-      it "should allow using the can? method on a model" do
-        new_user = FactoryGirl.create :user
-        new_user.can!(:read, :in => @admin_circle)
-        new_user.can?(:read, @admin_circle.items.first).should be_true
-        @admin_circle.items.each{|i| new_user.can?(:read, i).should be_true}
-        @admin_circle.items.each{|i| new_user.can?(:write, i).should be_false}
+      before :each do
+        @new_user = FactoryGirl.create :user
+        @new_user.can!(:read, :in => @admin_circle)
       end
 
       it "should allow using the can? method on a model" do
-        new_user = FactoryGirl.create :user
-        new_user.can?(:write, @user_circle.items.first).should be_false
+        @new_user.can?(:read, @admin_circle.items.first).should be_true
+        @admin_circle.items.each{|i| @new_user.can?(:read, i).should be_true}
+        @admin_circle.items.each{|i| @new_user.can?(:write, i).should be_false}
+      end
 
-        @user_circle.items.each{|i| new_user.can?(:read, i).should be_false}
-        @user_circle.items.each{|i| new_user.can?(:write, i).should be_false}
+      it "should work with work with more than one object, but throw a warning" do
+        @new_user.should_receive(:warn)
+        @new_user.can?(:read, @admin_circle.items.first, @admin_circle.items.last)
+      end
+
+      it "should warn when returning false when no objects or circles are given" do
+        @new_user.should_receive(:warn)
+        @new_user.can?(:read)
+      end
+
+      it "should raise an exception if both circles and objects are given" do
+         lambda { @new_user.can?(:read, @admin_circle.items.first, :in => @admin_circle)}.should raise_error
       end
     end
 

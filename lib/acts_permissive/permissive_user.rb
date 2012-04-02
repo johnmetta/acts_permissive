@@ -99,6 +99,7 @@ module ActsPermissive
       end
 
       def can? *args
+        #TODO this is freakin long. Refactor this shit
         options = args.extract_options!
         options.assert_valid_keys(:in, :see)
 
@@ -110,8 +111,14 @@ module ActsPermissive
           return permissions_in(options[:see]).present?
         end
 
-        if options[:in].nil?
-          args.select{|o| o.respond_to? :is_used_permissively?}.each do |object|
+        # Get a list of objects that we might be searching on
+        objects = args.select{|o| o.respond_to? :is_used_permissively?}
+
+        raise "Cannot search in both circles and objects at the same time" if options[:in].present? and objects.count > 0
+
+        if options[:in].nil? and objects.count > 0
+          warn "You are testing permissions on multiple objects. This is an OR query, which will return true if ANY have the requested permission" if objects.count > 1
+          objects.each do |object|
             object.circles.each do |circle|
               # return true immediately if we find a circle where our permissions cover the bitmask
               perm = permissions_in circle
@@ -120,7 +127,7 @@ module ActsPermissive
               end
             end
           end
-        else
+        elsif options[:in].present?
           #Get the permissions and return
           perm = permissions_in options[:in]
           if perm.nil?
@@ -128,6 +135,8 @@ module ActsPermissive
           else
             return perm.mask & bits == bits
           end
+        else
+          warn "You haven't given an object or circle to search on. Failing silently. Argument list: #{args.inspect}"
         end
         # Failsafe to false
         false

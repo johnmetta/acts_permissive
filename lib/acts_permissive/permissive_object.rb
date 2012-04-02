@@ -34,7 +34,7 @@ module ActsPermissive
         # Get a list of users who can do whatever symbol based permissions are
         # listed. For instance
         # authors = @thing.all_who_can(:read, :write)
-
+        warn "\nPermissiveObject::all_who_can works, yeah, but it's a time suck. Use Carefully!"
         if args.include?(:see)
           raise PermissiveError, "Can only use :see as an option by itself" if args.count > 1
           return ActsPermissive::Grouping.who_can_see(self)

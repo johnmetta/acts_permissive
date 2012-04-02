@@ -81,26 +81,29 @@ describe ActsPermissive::PermissiveObject do
     end
 
     it "should return a list of users who can perform the given functions" do
+      lst = @rest_object.all_who_can(:read)
       [@user, @anne].each do |u|
-        @rest_object.all_who_can(:read).include?(u).should be_true
+        lst.include?(u).should be_true
       end
-
+      lst = @rest_object.all_who_can(:admin)
       [@user, @admin].each do |u|
-        @rest_object.all_who_can(:admin).include?(u).should be_true
+        lst.include?(u).should be_true
       end
     end
 
     it "should not include users who can't perform the function" do
+      lst = @rest_object.all_who_can(:write)
       [@admin, @debbie, @anne].each do |u|
-        @rest_object.all_who_can(:write).include?(u).should be_false
+        lst.include?(u).should be_false
       end
     end
 
     it "Should correctly show all users who can :see an object" do
+      lst = @rest_object.all_who_can(:see)
       [@admin, @anne, @user].each do |u|
-        @rest_object.all_who_can(:see).include?(u).should be_true
+        lst.include?(u).should be_true
       end
-      @rest_object.all_who_can(:see).include?(@debbie).should be_false
+      lst.include?(@debbie).should be_false
     end
 
     it "should throw an error when using :see with other permissions" do
