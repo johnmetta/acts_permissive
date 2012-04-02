@@ -19,8 +19,8 @@ describe ActsPermissive::PermissiveObject do
   end
 
   before :each do
-    @user = Factory :user
-    @admin = Factory :admin
+    @user = FactoryGirl.create :user
+    @admin = FactoryGirl.create :admin
     @rest_object = RestObject.find(321)
     @circle = @user.build_circle :objects => [@rest_object]
   end
@@ -66,8 +66,8 @@ describe ActsPermissive::PermissiveObject do
 
     before :each do
       @admin.can!(:admin, :in => @circle)
-      @anne = Factory :user
-      @debbie = Factory :user
+      @anne = FactoryGirl.create :user
+      @debbie = FactoryGirl.create :user
       @anne.can!(:read, :in => @circle)
       @widget = RestObject.find(123)
       @widget.add_to @circle

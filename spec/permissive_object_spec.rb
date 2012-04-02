@@ -3,10 +3,10 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 describe ActsPermissive::PermissiveObject do
 
   before :each do
-    @user = Factory :user
-    @admin = Factory :admin
-    @thing = Factory :thing
-    @widget = Factory :widget
+    @user = FactoryGirl.create :user
+    @admin = FactoryGirl.create :admin
+    @thing = FactoryGirl.create :thing
+    @widget = FactoryGirl.create :widget
     @circle = @user.build_circle :objects => [@thing]
   end
 
@@ -40,8 +40,8 @@ describe ActsPermissive::PermissiveObject do
 
     before :each do
       @admin.can!(:admin, :in => @circle)
-      @anne = Factory :user
-      @debbie = Factory :user
+      @anne = FactoryGirl.create :user
+      @debbie = FactoryGirl.create :user
       @anne.can!(:read, :in => @circle)
       @widget.add_to @circle
     end

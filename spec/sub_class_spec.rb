@@ -3,10 +3,10 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 describe SubClass do
 
   before :each do
-    @user = Factory :user
-    @admin = Factory :admin
-    @thing = Factory :thing
-    @widget = Factory :widget
+    @user = FactoryGirl.create :user
+    @admin = FactoryGirl.create :admin
+    @thing = FactoryGirl.create :thing
+    @widget = FactoryGirl.create :widget
   end
 
   describe "class" do
@@ -38,8 +38,8 @@ describe SubClass do
 
   describe "query methods" do
     before :each do
-      @another_thing = Factory :thing
-      @another_widget = Factory :widget
+      @another_thing = FactoryGirl.create :thing
+      @another_widget = FactoryGirl.create :widget
       @uc = @user.build_circle :class => SubClass, :name => "blah", :objects => [@thing, @another_thing]
       @ac = @admin.build_circle :class => SubClass, :name => "yada", :objects => [@widget, @another_widget, @thing]
     end
@@ -50,9 +50,9 @@ describe SubClass do
     end
 
     it "should return the list of users in a circle" do
-      anne = Factory :user
-      debbie = Factory :user
-      frank = Factory :user
+      anne = FactoryGirl.create :user
+      debbie = FactoryGirl.create :user
+      frank = FactoryGirl.create :user
       anne.can!(:read, :in => @uc)
       debbie.can!(:read, :write, :in => @uc)
       frank.can!(:read, :in => @ac)
@@ -75,7 +75,7 @@ describe SubClass do
 
   describe "scopes" do
     before :each do
-      @user = Factory :user
+      @user = FactoryGirl.create :user
       @circles = []
       %w{one two three four five blah yada}.each do |w|
         @circles << @user.build_circle(:class => SubClass, :name => w)
@@ -84,7 +84,7 @@ describe SubClass do
     end
 
     it "should return a list of users" do
-      another_user = Factory :user
+      another_user = FactoryGirl.create :user
       another_user.can!(:read, :in => @circles.first)
       @circles.first.users.include?(@user).should be_true
       @circles.first.users.include?(another_user).should be_true

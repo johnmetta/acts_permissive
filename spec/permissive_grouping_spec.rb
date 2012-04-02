@@ -3,10 +3,10 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 describe ActsPermissive::Grouping do
 
   before :each do
-    @user = Factory :user
-    @admin = Factory :admin
-    @widget = Factory :widget
-    @thing = Factory :thing
+    @user = FactoryGirl.create :user
+    @admin = FactoryGirl.create :admin
+    @widget = FactoryGirl.create :widget
+    @thing = FactoryGirl.create :thing
     @admin_circle = @admin.build_circle :name => "blah", :objects => [@widget]
     @user_circle = @user.build_circle :name => "yada", :objects => [@thing], :mask => 31
   end

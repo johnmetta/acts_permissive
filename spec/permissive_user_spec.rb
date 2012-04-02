@@ -3,10 +3,10 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 describe ActsPermissive::PermissiveUser do
 
   before :each do
-    @user = Factory :user
-    @admin = Factory :admin
-    @widget = Factory :widget
-    @thing = Factory :thing
+    @user = FactoryGirl.create :user
+    @admin = FactoryGirl.create :admin
+    @widget = FactoryGirl.create :widget
+    @thing = FactoryGirl.create :thing
     @admin_circle = @admin.build_circle :name => "blah", :objects => [@widget]
     @user_circle = @user.build_circle :name => "yada", :objects => [@thing], :mask => 31
   end
@@ -77,10 +77,11 @@ describe ActsPermissive::PermissiveUser do
     end
 
     it "should return false for a user without permissions" do
-      new_user = Factory :user
+      new_user = FactoryGirl.create :user
       new_user.can?(:see => @user_circle).should be_false
       new_user.can?(:read, :in => @user_circle).should be_false
     end
+
   end
 
   describe "permissions methods" do
