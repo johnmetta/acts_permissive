@@ -77,6 +77,9 @@ It's all a bit complicated to talk about, because we're not used to being able t
 
     friend.can?(:read, :in => private_circle) -> true
     friend.can?(:write, :in => private_circle) -> false
+    friend.can?(:read, journal) -> true
+    friend.can?(:write, journal) -> false
+    friend.can?(:read, photo) -> true
 
     foe.can?(:read, :in => public_circle) -> false
     foe.can?(:read, :in => private_circle) -> false
@@ -149,13 +152,6 @@ Object also has a some query methods:
     tv.all_who_can(:use) -> [john, wife, bill]
 
     toothbrush.all_who_can(:use).include? wife -> true
-
-Note: It might be useful to have a can? method that can act on the individual object, such as
-
-    boss.can(:use, stapler) -> false
-
-But I've opted to leave that in the application's solution space, since this gem focuses on
-the circle of objects, not the individual object as much.
 
 You can also get all users in a circle, regardless of type
 
