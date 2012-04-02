@@ -114,7 +114,10 @@ module ActsPermissive
           args.select{|o| o.respond_to? :is_used_permissively?}.each do |object|
             object.circles.each do |circle|
               # return true immediately if we find a circle where our permissions cover the bitmask
-              return true if permissions_in(circle).mask & bits == bits
+              perm = permissions_in circle
+              if perm.present?
+                return true if perm.mask & bits == bits
+              end
             end
           end
         else

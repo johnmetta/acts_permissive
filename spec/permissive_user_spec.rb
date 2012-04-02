@@ -89,6 +89,15 @@ describe ActsPermissive::PermissiveUser do
         new_user.can!(:read, :in => @admin_circle)
         new_user.can?(:read, @admin_circle.items.first).should be_true
         @admin_circle.items.each{|i| new_user.can?(:read, i).should be_true}
+        @admin_circle.items.each{|i| new_user.can?(:write, i).should be_false}
+      end
+
+      it "should allow using the can? method on a model" do
+        new_user = FactoryGirl.create :user
+        new_user.can?(:write, @user_circle.items.first).should be_false
+
+        @user_circle.items.each{|i| new_user.can?(:read, i).should be_false}
+        @user_circle.items.each{|i| new_user.can?(:write, i).should be_false}
       end
     end
 
