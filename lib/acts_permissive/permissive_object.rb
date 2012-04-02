@@ -30,6 +30,8 @@ module ActsPermissive
       end
 
       #TODO: Refactor this shit!
+      # One way to do this. Figure out a list of permission masks that would pass,
+      # then use that to do a straight SQL query using "perm.mask IN [list]"
       def all_who_can *args
         # Get a list of users who can do whatever symbol based permissions are
         # listed. For instance
