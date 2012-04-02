@@ -64,7 +64,7 @@ module ActsPermissive
       def reset_permissions! *args
         options = args.extract_options!
         options.assert_valid_keys(:in)
-        # We're only using this if there are circles- not on generic objects, which should be INSIDE circles
+
         raise PermissiveError, "Must be called with a circle as an argument" if options[:in].nil?
 
         #get the permission, or build it if it doesn't exist
@@ -102,23 +102,32 @@ module ActsPermissive
         options = args.extract_options!
         options.assert_valid_keys(:in, :see)
 
+        # Get the bitmap for the selected permissions
+        bits = args.select{|o| o.class == Symbol}.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p }
+
         #if we're checking for :see, return right away
         if options[:see]
           return permissions_in(options[:see]).present?
         end
 
-        # We're only using this if there are circles- not on generic objects, which should be INSIDE circles
-        raise PermissiveError, "Must be called with a circle as an argument" if options[:in].nil?
-
-        #Get the permissions and return
-        perm = permissions_in options[:in]
-        if perm.nil?
-          false
+        if options[:in].nil?
+          args.select{|o| o.respond_to? :is_used_permissively?}.each do |object|
+            object.circles.each do |circle|
+              # return true immediately if we find a circle where our permissions cover the bitmask
+              return true if permissions_in(circle).mask & bits == bits
+            end
+          end
         else
-          #add up the bits and do a bitwise and to check permissions
-          bits = args.select{|o| o.class == Symbol}.map{|s| Permission.bit_for s}.inject(0){|sum, p| sum + p }
-          perm.mask & bits == bits
+          #Get the permissions and return
+          perm = permissions_in options[:in]
+          if perm.nil?
+            return false
+          else
+            return perm.mask & bits == bits
+          end
         end
+        # Failsafe to false
+        false
       end
 
       def revoke! *args
