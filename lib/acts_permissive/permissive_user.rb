@@ -136,7 +136,7 @@ module ActsPermissive
             return perm.mask & bits == bits
           end
         else
-          warn "You haven't given an object or circle to search on. Failing silently. Argument list: #{args.inspect}"
+          warn "You haven't given an object or circle to search on. Failing silently. (Perhaps a model does not call 'is_used_permissively', check that. Argument list: #{args.inspect}"
         end
         # Failsafe to false
         false
