@@ -92,7 +92,9 @@ describe ActsPermissive::PermissiveUser do
       it "should allow using the can? method on a model" do
         @new_user.can?(:read, @admin_circle.items.first).should be_true
         @admin_circle.items.each{|i| @new_user.can?(:read, i).should be_true}
-        @admin_circle.items.each{|i| @new_user.can?(:write, i).should be_false}
+        @admin_circle.items.each do |item|
+          @new_user.can?(:write, item).should be_false
+        end
       end
 
       it "should work with work with more than one object, but throw a warning" do
@@ -150,6 +152,14 @@ describe ActsPermissive::PermissiveUser do
       [:read, :write, :see, :admin, :owner].each do |p|
         @user.can?(p, :in => @admin_circle).should be_false
       end
+    end
+
+    it "should correctly revoke the lowest permission" do
+      user = FactoryGirl.create :user
+      user.can!(:see, :in => @user_circle)
+      user.can?(:see, :in => @user_circle).should be_true
+      user.revoke!(:see, :in => @user_circle)
+      user.can?(:see, :in => @user_circle).should be_false
     end
   end
 

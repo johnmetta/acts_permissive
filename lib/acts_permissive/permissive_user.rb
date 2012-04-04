@@ -162,7 +162,7 @@ module ActsPermissive
         end
 
         # Remove from circle and destroy permissions if the mask is zero
-        perm.destroy! if perm.mask == 0
+        perm.destroy if perm.mask == 0
       end
     end
   end
