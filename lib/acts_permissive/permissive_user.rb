@@ -41,8 +41,11 @@ module ActsPermissive
 
         #Build the circle and set the permissions mask
         circle = params[:class].create :name => params[:name]
-        permissions.build :circle => circle, :mask => params[:mask]
-        save!
+        perm = Permission.create :circle => circle, :mask => params[:mask]
+        group = Grouping.create :permissible => self, :permission => perm
+
+        raise "Something happened saving permission: #{perm.inspect}" unless perm.save
+        raise "Something happened saving permission: #{group.inspect}" unless group.save
 
         #If there are any objects in the list that don't respond to is_used_permissively, they
         # are silently ignored

@@ -63,12 +63,10 @@ module ActsPermissive
     module ActiveRecordSafeMethods
       def add_to *args
         args.each{|c| self.circles << c}
-        save!
       end
 
       def remove_from *args
         args.each{|c| self.circles.delete c}
-        save!
       end
     end
 
@@ -93,7 +91,7 @@ module ActsPermissive
       def remove_from *args
         args.each do |arg|
           raise "Must be a circle" if arg.class != Circle
-          circles = ActsPermissive::Circling.first(:conditions => {
+          ActsPermissive::Circling.first(:conditions => {
                                   :circle_id => arg.id,
                                   :circleable_id => self.id,
                                   :circleable_type => self.class.name}).destroy
