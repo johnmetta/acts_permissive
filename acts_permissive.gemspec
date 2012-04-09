@@ -13,8 +13,11 @@ Gem::Specification.new do |s|
   s.summary     = "Arbitrary permissions system for Rails objects"
   s.description = "Allows for arbitrary permissions on arbitrary collections of objects, rather than system-wide role based management"
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.markdown"]
+  s.files = Dir["{lib}/**/*"] + ["Rakefile", "README.markdown"]
   s.test_files = Dir["spec/**/*"]
+  s.test_files.delete("spec/dummy/log")
+  s.test_files.delete("spec/dummy/log/development.log")
+  s.test_files.delete("spec/dummy/log/test.log")
 
   s.add_dependency "rails", "~> 3.1.1"
   s.add_dependency "uuidtools"

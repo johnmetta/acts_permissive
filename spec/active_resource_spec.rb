@@ -74,10 +74,11 @@ describe ActsPermissive::PermissiveObject do
     end
 
     it "should correctly scope who_can_see" do
+      lst = ActsPermissive::Grouping.who_can_see(@widget)
       [@anne, @admin, @user].each do |u|
-        ActsPermissive::Grouping.who_can_see(@widget).include?(u).should be_true
+        lst.include?(u).should be_true
       end
-      ActsPermissive::Grouping.who_can_see(@widget).include?(@debbie).should be_false
+      lst.include?(@debbie).should be_false
     end
 
     it "should return a list of users who can perform the given functions" do
