@@ -18,13 +18,15 @@ describe ActsPermissive::PermissiveUser do
     end
 
     it "should return permissible classes with who_can_see" do
-      ActsPermissive::Grouping.who_can_see(@thing).should be_an_instance_of(Array)
+      thing_lst = ActsPermissive::Grouping.who_can_see(@thing)
+      widget_lst = ActsPermissive::Grouping.who_can_see(@widget)
+      
+      thing_lst.should be_an_instance_of(Array)
 
-      ActsPermissive::Grouping.who_can_see(@thing).include?(@user).should be_true
-      ActsPermissive::Grouping.who_can_see(@widget).include?(@user).should be_false
-
-      ActsPermissive::Grouping.who_can_see(@thing).include?(@admin).should be_false
-      ActsPermissive::Grouping.who_can_see(@widget).include?(@admin).should be_true
+      widget_lst.include?(@user).should be_false
+      widget_lst.include?(@admin).should be_true
+      thing_lst.include?(@user).should be_true
+      thing_lst.include?(@admin).should be_false
     end
   end
 

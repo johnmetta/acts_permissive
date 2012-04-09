@@ -20,7 +20,7 @@ I know, that's confusing. But it's really cool once you get it. Keep reading.
 
 ## Loading
 
-Somewhere in the initialisation (e.g. application.rb), define your arbitrary permissions:
+Somewhere in the initialization (e.g. application.rb), define your arbitrary permissions:
 
     module ActsPermissive::PermissionMap
       VISIT = 0
