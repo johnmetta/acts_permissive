@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.test_files.delete("spec/dummy/log/development.log")
   s.test_files.delete("spec/dummy/log/test.log")
 
-  s.add_dependency "rails", "~> 3.1.1"
+  s.add_dependency "rails", "~> 4.0.0"
   s.add_dependency "uuidtools"
 
   s.add_development_dependency "rspec-rails"
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pg"
   s.add_development_dependency "capybara"
   s.add_development_dependency "rspec"
-  s.add_development_dependency "spork", '~> 0.9.0'
+  s.add_development_dependency "spork"
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'guard-spork'
   s.add_development_dependency "factory_girl_rails"
